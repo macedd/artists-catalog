@@ -1,0 +1,22 @@
+version: "3.9"
+   
+services:
+  db:
+    image: mysql:5
+    volumes:
+      - ./data/db:/var/lib/mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_ROOT_HOST=%
+  web:
+    build:
+      dockerfile: docker/django-Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    # environment:
+    #   - DJANGO_SETTINGS_MODULE="artistscatalog.settings"
+    depends_on:
+      - db
