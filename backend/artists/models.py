@@ -13,6 +13,7 @@ class Artist(models.Model):
     slug = models.SlugField(max_length=120, unique=True)
     title = models.CharField(max_length=60)
     photo = models.ImageField(upload_to=artist_directory_path, blank=True)
+    categories = models.ManyToManyField('Category', blank=True)
 
     featured = models.BooleanField()
     
@@ -43,3 +44,16 @@ class Artist(models.Model):
     # )
     def __str__(self):
         return self.name
+
+class Category(models.Model):
+    title  = models.CharField(max_length=60)
+    slug   = models.SlugField(max_length=60)
+    parent = models.ForeignKey('self', blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "categories"
+        unique_together = ('slug', 'parent',)    
+
+# class ArtistCategory(models.Model):
+#     artist = models.ForeignKey(Artist)
+#     category = models.ForeignKey(Category)

@@ -6,5 +6,10 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /code/backend
 
+RUN apt-get update && \
+  apt-get install -y npm
+
+RUN npm -g install less
+
 COPY ../backend/requirements.txt /tmp/
 RUN pip install -r /tmp/requirements.txt
