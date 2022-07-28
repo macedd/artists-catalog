@@ -14,6 +14,7 @@ class Artist(models.Model):
     title = models.CharField(max_length=60)
     photo = models.ImageField(upload_to=artist_directory_path, blank=True)
     categories = models.ManyToManyField('Category', blank=True)
+    related = models.ManyToManyField('self', blank=True)
 
     featured = models.BooleanField()
     
@@ -37,22 +38,30 @@ class Artist(models.Model):
     def views_increment(self):
       Artist.objects.filter(id=self.id).update(views=models.F('views') + 1)
 
-    # @admin.display(
-    #     boolean=True,
-    #     ordering='pub_date',
-    #     description='Published recently?',
-    # )
+    def save(self, *args, **kwargs):
+        # if not self.id:
+        self.slug = slugify(self.name)
+        super(Artist, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
 class Category(models.Model):
     title  = models.CharField(max_length=60)
     slug   = models.SlugField(max_length=60)
-    parent = models.ForeignKey('self', blank=True, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "categories"
         unique_together = ('slug', 'parent',)    
+
+    def save(self, *args, **kwargs):
+        # if not self.id:
+        self.slug = slugify(self.title)
+        super(Category, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
 
 # class ArtistCategory(models.Model):
 #     artist = models.ForeignKey(Artist)

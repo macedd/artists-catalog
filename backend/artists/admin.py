@@ -9,18 +9,23 @@ class CategoryInline(admin.TabularInline):
 
 class ArtistAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Basic information', {'fields': ['name', 'slug', 'title', 'photo']}),
+        ('Basic information', {'fields': ['name', 'title', 'photo']}),
         ('Categories', {'fields': ['categories']}),
         ('Homepage Featured', {'fields': ['featured']}),
         ('Extended information', {'fields': ['biography', 'birth_date', 'birth_city', 'artistic_kinship', 'groups_affiliation', 'works']}),
         ('Contact information', {'fields': ['website', 'instagram', 'facebook', 'whatsapp']}),
+        ('Related Artists', {'fields': ['related']}),
     ]
     # inlines = (CategoryInline,)                                                  
     list_display = ('name', 'title', 'featured', 'created_at')
     list_filter = ['featured', 'created_at']
+    filter_horizontal = ('categories', 'related')
 
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    fieldsets = [
+        (None, {'fields': ['title', 'parent']}),
+    ]
+    list_display = ('title', 'parent')
 
 
 admin.site.register(Artist, ArtistAdmin)
