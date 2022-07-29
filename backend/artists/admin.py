@@ -6,6 +6,9 @@ from .models import Artist, Category, Portfolio
 class CategoryInline(admin.TabularInline):                                                                                               
     model = Artist.categories.through
 
+class PortfolioInline(admin.TabularInline):                                                                                               
+    model = Portfolio
+    extra = 2
 
 class ArtistAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -16,7 +19,7 @@ class ArtistAdmin(admin.ModelAdmin):
         ('Contact information', {'fields': ['website', 'instagram', 'facebook', 'whatsapp']}),
         ('Related Artists', {'fields': ['related']}),
     ]
-    # inlines = (CategoryInline,)                                                  
+    inlines = (PortfolioInline,)                                                  
     list_display = ('name', 'title', 'featured', 'created_at')
     list_filter = ['featured', 'created_at']
     filter_horizontal = ('categories', 'related')

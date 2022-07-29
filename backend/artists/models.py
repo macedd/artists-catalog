@@ -10,7 +10,7 @@ from .fields import PortfolioUploadField
 
 def artist_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'artists_{0}/{1}'.format(instance.id, filename)
+    return 'artists/{0}/{1}'.format(instance.id, filename)
 
 class Artist(models.Model):
     name = models.CharField(max_length=120)
@@ -64,7 +64,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
-
 
 class Portfolio(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
