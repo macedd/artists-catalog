@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Artist, Category
+from .models import Artist, Category, Portfolio
 
 class CategoryInline(admin.TabularInline):                                                                                               
     model = Artist.categories.through
@@ -30,3 +30,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Portfolio)

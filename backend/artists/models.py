@@ -1,6 +1,10 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.contrib import admin
+from django.core import validators
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
+
+from .fields import PortfolioUploadField
 
 # Create your models here.
 
@@ -39,7 +43,6 @@ class Artist(models.Model):
       Artist.objects.filter(id=self.id).update(views=models.F('views') + 1)
 
     def save(self, *args, **kwargs):
-        # if not self.id:
         self.slug = slugify(self.name)
         super(Artist, self).save(*args, **kwargs)
 
@@ -56,13 +59,44 @@ class Category(models.Model):
         unique_together = ('slug', 'parent',)    
 
     def save(self, *args, **kwargs):
-        # if not self.id:
         self.slug = slugify(self.title)
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
-# class ArtistCategory(models.Model):
-#     artist = models.ForeignKey(Artist)
-#     category = models.ForeignKey(Category)
+
+class Portfolio(models.Model):
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    title = models.CharField(max_length=120)
+
+    class UploadTypes(models.TextChoices):
+        MUSIC   = 'music', _('Music')
+        DRAWING = 'drawing', _('Drawing')
+        PHOTO   = 'photo', _('Photo')
+        VIDEO   = 'video', _('Video')
+
+    upload_type = models.CharField(
+        max_length=10,
+        choices=UploadTypes.choices
+    )
+    upload = PortfolioUploadField(
+        upload_to=artist_directory_path,
+        blank=True,
+        null=True
+    )
+    link  = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    views = models.IntegerField(default=0, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def clean(self):
+        if not self.upload and not self.link:
+            raise ValidationError('Upload or link are required for portfolio')
+
+    def __str__(self):
+        return self.title
