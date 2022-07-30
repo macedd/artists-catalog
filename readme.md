@@ -14,3 +14,10 @@ Development
     python3 -m venv .venv
     source .venv/bin/activate
     pip install -r requirements.txt
+
+Translations
+
+    # create/update languages
+    django-admin makemessages -l pt_br
+    # compile languages
+    django-admin compilemessages

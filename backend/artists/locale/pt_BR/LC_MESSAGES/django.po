@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-29 23:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: artists/admin.py:16
+msgid "Basic information"
+msgstr "Informações básicas"
+
+#: artists/admin.py:17 artists/models.py:37 artists/models.py:141
+msgid "Categories"
+msgstr "Categorias"
+
+#: artists/admin.py:18
+msgid "Homepage Featured"
+msgstr "Destaque na página inicial"
+
+#: artists/admin.py:19
+msgid "Extended information"
+msgstr "Informações adicionais"
+
+#: artists/admin.py:20
+msgid "Contact information"
+msgstr "Informações de contato"
+
+#: artists/admin.py:21
+msgid "Related Artists"
+msgstr "Artistas relacionados"
+
+#: artists/apps.py:8
+msgid "Artists Catalog"
+msgstr "Catálogo de Artistas"
+
+#: artists/models.py:18
+msgid "Name"
+msgstr "Nome"
+
+#: artists/models.py:23 artists/models.py:129
+msgid "Slug"
+msgstr "Slug"
+
+#: artists/models.py:27 artists/models.py:125 artists/models.py:159
+msgid "Title"
+msgstr "Título"
+
+#: artists/models.py:32 artists/models.py:165
+msgid "Photo"
+msgstr "Foto"
+
+#: artists/models.py:42
+msgid "Related"
+msgstr "Relacionados"
+
+#: artists/models.py:46
+msgid "Featured"
+msgstr "Destaque"
+
+#: artists/models.py:50
+msgid "Biography"
+msgstr "Biografia"
+
+#: artists/models.py:53
+msgid "Birth date"
+msgstr "Data de nascimento"
+
+#: artists/models.py:57
+msgid "Birth city"
+msgstr "Cidade de nascimento"
+
+#: artists/models.py:62
+msgid "Artistic Kinship"
+msgstr "Parentesco Artístico"
+
+#: artists/models.py:66
+msgid "Groups Affiliation"
+msgstr "Grupos/Filiações"
+
+#: artists/models.py:70
+msgid "Works"
+msgstr "Obras"
+
+#: artists/models.py:76
+msgid "Website"
+msgstr ""
+
+#: artists/models.py:81
+msgid "Instagram"
+msgstr ""
+
+#: artists/models.py:86
+msgid "Facebook"
+msgstr ""
+
+#: artists/models.py:91
+msgid "Whatsapp"
+msgstr ""
+
+#: artists/models.py:97 artists/models.py:188
+msgid "Views"
+msgstr "Visualizações"
+
+#: artists/models.py:101 artists/models.py:192
+msgid "Created at"
+msgstr "Criado em"
+
+#: artists/models.py:105 artists/models.py:196
+msgid "Updated at"
+msgstr "Atualizado em"
+
+#: artists/models.py:116 artists/models.py:155
+msgid "Artist"
+msgstr "Artista"
+
+#: artists/models.py:117
+msgid "Artists"
+msgstr "Artistas"
+
+#: artists/models.py:136
+msgid "Parent category"
+msgstr "Categoria pai"
+
+#: artists/models.py:140
+msgid "Category"
+msgstr "Categoria"
+
+#: artists/models.py:163
+msgid "Music"
+msgstr "Música"
+
+#: artists/models.py:164
+msgid "Drawing"
+msgstr "Desenho"
+
+#: artists/models.py:166
+msgid "Video"
+msgstr "Vídeo"
+
+#: artists/models.py:171
+msgid "Upload type"
+msgstr "Tipo de upload"
+
+#: artists/models.py:177
+msgid "Upload"
+msgstr "Upload"
+
+#: artists/models.py:182
+msgid "Link"
+msgstr "Link"

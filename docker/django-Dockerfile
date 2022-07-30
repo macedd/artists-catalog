@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /code/backend
 
 RUN apt-get update && \
-  apt-get install -y npm
+  apt-get install -y gettext npm
 
 RUN npm -g install less
 

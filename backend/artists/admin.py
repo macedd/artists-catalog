@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 # Register your models here.
 from .models import Artist, Category, Portfolio
@@ -12,12 +13,12 @@ class PortfolioInline(admin.TabularInline):
 
 class ArtistAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Basic information', {'fields': ['name', 'title', 'photo']}),
-        ('Categories', {'fields': ['categories']}),
-        ('Homepage Featured', {'fields': ['featured']}),
-        ('Extended information', {'fields': ['biography', 'birth_date', 'birth_city', 'artistic_kinship', 'groups_affiliation', 'works']}),
-        ('Contact information', {'fields': ['website', 'instagram', 'facebook', 'whatsapp']}),
-        ('Related Artists', {'fields': ['related']}),
+        (_('Basic information'), {'fields': ['name', 'title', 'photo']}),
+        (_('Categories'), {'fields': ['categories']}),
+        (_('Homepage Featured'), {'fields': ['featured']}),
+        (_('Extended information'), {'fields': ['biography', 'birth_date', 'birth_city', 'artistic_kinship', 'groups_affiliation', 'works']}),
+        (_('Contact information'), {'fields': ['website', 'instagram', 'facebook', 'whatsapp']}),
+        (_('Related Artists'), {'fields': ['related']}),
     ]
     inlines = (PortfolioInline,)                                                  
     list_display = ('name', 'title', 'featured', 'created_at')
