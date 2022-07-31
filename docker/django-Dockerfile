@@ -10,6 +10,7 @@ RUN apt-get update && \
   apt-get install -y gettext npm
 
 RUN npm -g install less
+RUN python -m pip install gunicorn
 
 COPY ../backend/requirements.txt /tmp/
 RUN pip install -r /tmp/requirements.txt
