@@ -12,7 +12,7 @@ if [[ $COMMAND = "publish" ]]; then
     scp ../catalog.zip "$HOST":~
     ssh "$HOST" "
         unzip -q -u -o catalog.zip -d $FOLDER && \
-        cd $FOLDER && \
+        cd $FOLDER/deployments/ && \
         docker-compose build && \
         docker-compose -f docker-compose.yml -f docker-compose-production.yml up -d && \
         docker-compose exec -T web python manage.py migrate --noinput && \
