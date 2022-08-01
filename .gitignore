@@ -3,3 +3,6 @@ data/
 .env
 
 todo.md
+
+my.cnf
+/static/
