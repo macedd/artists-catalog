@@ -14,3 +14,5 @@ RUN python -m pip install gunicorn
 
 COPY ./requirements.txt /tmp/
 RUN pip install -r /tmp/requirements.txt
+
+ENTRYPOINT /code/deployments/django/entrypoint.sh
