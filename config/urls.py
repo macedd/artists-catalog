@@ -16,7 +16,7 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import path, include
 
-from backend import admin
+from theme import admin
 
 urlpatterns = [
     path('artists/', include('artists.urls')),

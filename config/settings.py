@@ -14,14 +14,11 @@ import os
 from pathlib import Path
 import sys
 
-# Adds apps folder to python path
-PROJECT_ROOT = os.path.dirname(__file__)
-sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Adds apps folder to python path
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -93,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'init_command': 'SET default_storage_engine=INNODB',
-            'read_default_file': '/code/backend/my.cnf',
+            'read_default_file': '/code/my.cnf',
         },
     }
 }
@@ -134,7 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = '/code/backend/static'
+STATIC_ROOT = '/code/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
