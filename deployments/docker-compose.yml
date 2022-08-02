@@ -12,7 +12,7 @@ services:
     build:
       dockerfile: deployments/django/Dockerfile
       context: ../
-    command: python manage.py runserver 0.0.0.0:8000
+    command: dev
     volumes:
       - ../:/code
     ports:

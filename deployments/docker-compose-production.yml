@@ -7,5 +7,5 @@ services:
   web:
     ports:
       - "5001:8000"
-    command: gunicorn config.wsgi
+    command: prod
 

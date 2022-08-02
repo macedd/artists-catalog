@@ -1,21 +1,22 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 COMMAND=${1:-dev}
 
 if [[ $COMMAND = "dev" ]]; then
 
     cd apps/theme/static_src
-    npx tailwindcss -i ./input.css -o ../static/output.css --watch &
+    npx tailwindcss -i ./tailwind.css -o ../static/theme/tailwind.css --watch &
 
     cd -
     python manage.py runserver 0.0.0.0:8000
 
-if [[ $COMMAND = "prod" ]]; then
+elif [[ $COMMAND = "build" ]]; then
 
     cd apps/theme/static_src
-    npx tailwindcss -i ./input.css -o ../static/output.css
+    npx tailwindcss -i ./tailwind.css -o ../static/theme/tailwind.css --minify
 
-    cd -
+elif [[ $COMMAND = "prod" ]]; then
+
     gunicorn config.wsgi
 
 else

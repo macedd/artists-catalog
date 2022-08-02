@@ -16,6 +16,7 @@ if [[ $COMMAND = "publish" ]]; then
         docker-compose build && \
         docker-compose -f docker-compose.yml -f docker-compose-production.yml up -d && \
         docker-compose exec -T web python manage.py migrate --noinput && \
+        docker-compose exec -T web deployments/django/entrypoint.sh build && \
         docker-compose exec -T web python manage.py collectstatic --noinput && \
         "
 
