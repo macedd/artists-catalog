@@ -4,5 +4,5 @@ data/
 
 todo.md
 
-my.cnf
+/my*.cnf
 /static/

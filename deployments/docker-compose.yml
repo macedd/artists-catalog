@@ -12,11 +12,11 @@ services:
     build:
       dockerfile: deployments/django/Dockerfile
       context: ../
-    command: dev
     volumes:
       - ../:/code
     ports:
-      - "5001:8000"
+      - 5001:8000
+    command: dev
     environment:
       # - DJANGO_SETTINGS_MODULE="artistscatalog.settings"
       - AWS_ACCESS_KEY_ID

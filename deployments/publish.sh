@@ -24,7 +24,9 @@ if [[ $COMMAND = "publish" ]]; then
         docker-compose up -d && \
         docker-compose exec -T web python manage.py migrate --noinput && \
         docker-compose exec -T web deployments/django/entrypoint.sh build && \
-        docker-compose exec -T web python manage.py collectstatic --noinput"
+        docker-compose exec -T web python manage.py collectstatic --noinput && \
+        docker-compose kill web --signal=HUP && \
+        docker-compose logs | tail -n 10"
 
 else
     echo "$COMMAND command not implemented"
