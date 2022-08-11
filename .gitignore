@@ -1,6 +1,7 @@
 data/
 .venv/
 .env
+docker-compose.override.yml
 
 todo.md
 

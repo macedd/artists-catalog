@@ -14,14 +14,9 @@ services:
       context: ../
     volumes:
       - ../:/code
-    ports:
-      - 5001:8000
-    command: dev
     environment:
-      # - DJANGO_SETTINGS_MODULE="artistscatalog.settings"
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
       - AWS_STORAGE_BUCKET_NAME
       - AWS_LOCATION
-    depends_on:
-      - db
+      # - DJANGO_SETTINGS_MODULE="artistscatalog.settings"
