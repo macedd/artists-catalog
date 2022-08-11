@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'django-insecure-hlcsi6cdm*$d*!5+*ely2ohpsu0^tn7=^fsj11e2l0)ad3#-o@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['artejucana.budi.tech', 'artejucana.com.br']
 CSRF_TRUSTED_ORIGINS = ['https://artejucana.budi.tech', 'https://artejucana.com.br']
@@ -123,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
