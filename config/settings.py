@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-hlcsi6cdm*$d*!5+*ely2ohpsu0^tn7=^fsj11e2l0)ad3#-o@
 DEBUG = True
 
 ALLOWED_HOSTS = ['artejucana.budi.tech', 'artejucana.com.br']
-
+CSRF_TRUSTED_ORIGINS = ['https://artejucana.budi.tech', 'https://artejucana.com.br']
 
 # Application definition
 
