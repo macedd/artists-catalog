@@ -8,9 +8,9 @@ from .fields import PortfolioUploadField
 
 # Create your models here.
 
-def artist_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'artists/{0}/{1}'.format(instance.id, filename)
+def artist_directory_path(portfolio, filename):
+    # file will be uploaded to MEDIA_ROOT/<slug>/<filename>
+    return 'artists/{0}/{1}'.format(portfolio.artist.slug, filename)
 
 class Artist(models.Model):
     name = models.CharField(
@@ -109,7 +109,8 @@ class Artist(models.Model):
       Artist.objects.filter(id=self.id).update(views=models.F('views') + 1)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        if self.pk is None:
+            self.slug = slugify(self.name)
         super(Artist, self).save(*args, **kwargs)
 
     class Meta:
