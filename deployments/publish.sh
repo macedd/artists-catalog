@@ -25,7 +25,7 @@ if [[ $COMMAND = "publish" ]]; then
         docker-compose exec -T web python manage.py migrate --noinput && \
         docker-compose exec -T web deployments/django/entrypoint.sh build && \
         docker-compose exec -T web python manage.py collectstatic --noinput && \
-        docker-compose exec web sh -c \"kill -HUP \`pgrep --ns 1 ^gunicorn\`\" && \
+        docker-compose exec web entrypoint.sh reload && \
         docker-compose logs | tail -n 10"
 
 else

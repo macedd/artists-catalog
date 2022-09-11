@@ -16,3 +16,4 @@ COPY ./requirements.txt /tmp/
 RUN pip install -r /tmp/requirements.txt
 
 ENTRYPOINT /code/deployments/django/entrypoint.sh
+RUN ln -s /code/deployments/django/entrypoint.sh /usr/local/bin/entrypoint.sh

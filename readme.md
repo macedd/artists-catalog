@@ -15,6 +15,9 @@ Development
     source .venv/bin/activate
     pip install -r requirements.txt
 
+    # make app migrations
+    docker-compose exec web python manage.py makemigrations artists
+
 Translations
 
     # create/update languages

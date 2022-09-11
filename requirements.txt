@@ -6,3 +6,5 @@ django-browser-reload
 mysqlclient
 Pillow
 boto3
+
+# sorl-thumbnail 
