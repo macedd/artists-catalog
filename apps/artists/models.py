@@ -23,7 +23,7 @@ class Artist(models.Model):
         verbose_name=_('Slug')
     )
     past_slugs = models.JSONField(
-        default=[],
+        default=list,
         verbose_name=_('Past Slugs')
     )
     title = models.CharField(

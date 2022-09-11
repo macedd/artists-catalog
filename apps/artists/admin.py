@@ -21,9 +21,18 @@ class ArtistAdmin(admin.ModelAdmin):
         (_('Related Artists'), {'fields': ['related']}),
     ]
     inlines = (PortfolioInline,)                                                  
-    list_display = ('name', 'title', 'featured', 'created_at')
-    list_filter = ['featured', 'created_at']
+    list_display = ('title', 'get_categories', 'featured', 'created_at')
+    list_filter = ['featured', 'categories', 'created_at']
     filter_horizontal = ('categories', 'related')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related('categories')
+
+    def get_categories(self, obj):
+        return "\n".join([c.title for c in obj.categories.all()])
+    get_categories.short_description = _('Categories')
+
 
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -31,7 +40,22 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
     list_display = ('title', 'parent')
 
+class PortfolioAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['artist', 'upload_type', 'upload', 'link']}),
+    ]
+    list_display = ('title', 'upload_type', 'get_artist')
+    list_filter = ['upload_type']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related('artist')
+
+    def get_artist(self, obj):
+        return obj.artist.title
+    get_artist.short_description = _('Artist')
+
 
 admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Portfolio)
+admin.site.register(Portfolio, PortfolioAdmin)
