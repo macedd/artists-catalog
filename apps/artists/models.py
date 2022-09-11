@@ -10,7 +10,7 @@ from .fields import PortfolioUploadField
 
 def artist_directory_path(portfolio, filename):
     # file will be uploaded to MEDIA_ROOT/<slug>/<filename>
-    return 'artists/{0}/{1}'.format(portfolio.artist.slug, filename)
+    return 'artists/{0}/{1}'.format(portfolio.artist.original_slug, filename)
 
 class Artist(models.Model):
     name = models.CharField(
@@ -21,6 +21,10 @@ class Artist(models.Model):
         max_length=120,
         unique=True,
         verbose_name=_('Slug')
+    )
+    past_slugs = models.JSONField(
+        default=[],
+        verbose_name=_('Past Slugs')
     )
     title = models.CharField(
         max_length=60,
@@ -108,9 +112,16 @@ class Artist(models.Model):
     def views_increment(self):
       Artist.objects.filter(id=self.id).update(views=models.F('views') + 1)
 
+    @property
+    def original_slug(self):
+        return self.past_slugs[0]
+
     def save(self, *args, **kwargs):
-        if self.pk is None:
-            self.slug = slugify(self.name)
+        self.slug = slugify(self.title)
+        # new slug
+        if self.slug not in self.past_slugs:
+            # todo: make past_slug to be unique (check slug existed in any other artist)
+            self.past_slugs.append(slugify(self.title))
         super(Artist, self).save(*args, **kwargs)
 
     class Meta:
