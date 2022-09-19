@@ -147,6 +147,14 @@ class Category(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_('Parent category')
     )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created at')
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated at')
+    )
 
     class Meta:
         verbose_name = _('Category')
@@ -163,6 +171,7 @@ class Category(models.Model):
 class Portfolio(models.Model):
     artist = models.ForeignKey(
         Artist,
+        related_name='portfolio', 
         on_delete=models.CASCADE,
         verbose_name=_('Artist')
     )
