@@ -47,7 +47,9 @@ INSTALLED_APPS = [
 
     'static_precompiler',
     'storages',
-    'django_browser_reload'
+    'django_browser_reload',
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
