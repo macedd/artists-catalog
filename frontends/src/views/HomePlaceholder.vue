@@ -2,9 +2,9 @@
 </script>
 
 <template>
-  <div class="container px-4 h-screen">
+  <div>
     <img
-      class="h-full mx-auto max-h-min"
+      class="h-full mx-auto max-h-screen"
       src="@/assets/logo-placeholder.png"
       alt="Artejucana">
   </div>
