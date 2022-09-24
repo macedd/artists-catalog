@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import PageNotFound from "../views/PageNotFound.vue";
 import HomeView from "../views/HomeView.vue";
 import HomePlaceholder from '../views/HomePlaceholder.vue';
 
@@ -23,6 +24,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/AboutView.vue"),
     },
+    { path: "/:pathMatch(.*)*", component: PageNotFound }
   ],
 });
 
