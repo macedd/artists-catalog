@@ -178,6 +178,7 @@ class Portfolio(models.Model):
     )
     title = models.CharField(
         max_length=120,
+        blank=True,
         verbose_name=_('Title')
     )
 
