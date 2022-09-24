@@ -17,8 +17,8 @@ elif [[ $COMMAND = "build" ]]; then
 
 elif [[ $COMMAND = "prod" ]]; then
 
-    export GUNICORN_CMD_ARGS="--bind=0.0.0.0:8000 --workers=3 --name=artists-catalog --capture_output"
-    gunicorn config.wsgi
+    export GUNICORN_CMD_ARGS="--bind=0.0.0.0:8000 --workers=3 --name=artists-catalog"
+    gunicorn --capture-output config.wsgi
 
 elif [[ $COMMAND = "reload" ]]; then
 
