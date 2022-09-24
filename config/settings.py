@@ -31,6 +31,7 @@ DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['artejucana.budi.tech', 'artejucana.com.br', 'localhost']
 CSRF_TRUSTED_ORIGINS = ['https://artejucana.budi.tech', 'https://artejucana.com.br']
+CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:5173']
 
 # Application definition
 
@@ -50,11 +51,14 @@ INSTALLED_APPS = [
     'django_browser_reload',
 
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -156,3 +160,32 @@ AWS_QUERYSTRING_AUTH = False
 AWS_DEFAULT_ACL = 'public-read'
 AWS_LOCATION = os.environ.get('AWS_LOCATION', '')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Logging
+# https://docs.djangoproject.com/en/4.1/topics/logging/
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        # 'file': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.FileHandler',
+        #     'filename': '/var/log/django/debug.log',
+        # },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+    },
+}

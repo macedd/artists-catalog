@@ -3,6 +3,7 @@ django-static-precompiler ~= 2.1
 django-storages
 django-browser-reload
 djangorestframework
+django-cors-headers
 
 mysqlclient
 Pillow

@@ -54,6 +54,7 @@ class Artist(models.Model):
         verbose_name=_('Biography')
     )
     birth_date = models.DateField(
+        blank=True,
         verbose_name=_('Birth date')
     )
     birth_city = models.CharField(
