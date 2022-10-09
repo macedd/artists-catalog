@@ -17,3 +17,7 @@ RUN pip install -r /tmp/requirements.txt
 
 ENTRYPOINT /code/deployments/django/entrypoint.sh
 RUN ln -s /code/deployments/django/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+ENV UID=1000
+RUN useradd -r -u $UID -g root django
+USER django

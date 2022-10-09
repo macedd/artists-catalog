@@ -6,8 +6,6 @@ services:
       replicas: 0
   web:
     command: prod
-    working_dir: /code/
-    entrypoint: /code/deployments/django/entrypoint.sh
     restart: always
     ports:
       - 127.0.0.1:5001:8000

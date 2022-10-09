@@ -13,7 +13,7 @@ if [[ $COMMAND = "dev" ]]; then
 elif [[ $COMMAND = "build" ]]; then
 
     cd apps/theme/static_src
-    npx tailwindcss -i ./tailwind.css -o ../static/theme/tailwind.css --minify
+    npx tailwindcss -i ./tailwind.css -o ./static/theme/tailwind.css --minify
 
 elif [[ $COMMAND = "prod" ]]; then
 
@@ -22,8 +22,7 @@ elif [[ $COMMAND = "prod" ]]; then
 
 elif [[ $COMMAND = "reload" ]]; then
 
-    kill -HUP `pgrep --ns 1 ^python`
-    kill -HUP `pgrep --ns 1 ^gunicorn`
+    kill -HUP `pgrep --ns 1 "^(gunicorn|python)"`
 
 else
     echo "$COMMAND command not implemented"

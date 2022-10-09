@@ -16,6 +16,8 @@ services:
     build:
       dockerfile: deployments/django/Dockerfile
       context: ../
+    working_dir: /code/
+    entrypoint: /code/deployments/django/entrypoint.sh
     volumes:
       - ../:/code
     environment:
@@ -24,4 +26,3 @@ services:
       - AWS_STORAGE_BUCKET_NAME
       - AWS_LOCATION
       - DEBUG
-      # - DJANGO_SETTINGS_MODULE="artistscatalog.settings"
