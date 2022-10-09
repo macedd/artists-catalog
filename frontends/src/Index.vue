@@ -5,7 +5,9 @@ import HomePlaceholder from './views/HomePlaceholder.vue';
 
 <template>
   <div class="container px-4 h-screen">
-    <RouterView />
+    <Suspense>
+      <RouterView />
+    </Suspense>
   </div>
 </template>
 
