@@ -8,9 +8,11 @@ from .fields import PortfolioUploadField
 
 # Create your models here.
 
-def artist_directory_path(portfolio, filename):
+def artist_directory_path(instance: models.Model, filename: str):
+    # intance can be artist or portfolio
+    slug = instance.artist.original_slug if hasattr(instance, 'artist') else instance.original_slug
     # file will be uploaded to MEDIA_ROOT/<slug>/<filename>
-    return 'artists/{0}/{1}'.format(portfolio.artist.original_slug, filename)
+    return 'artists/{0}/{1}'.format(slug, filename)
 
 class Artist(models.Model):
     name = models.CharField(
