@@ -2,21 +2,22 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from 'axios';
 
-import { axiosErrorObject } from './helpers';
+import { axiosApiError, apiUrl } from './helpers';
+import type { Artist, ApiError } from './types';
 
 export const useArtistDetailStore = defineStore("artistDetail", () => {
-  const artist = ref({});
-  const error = ref({});
+  const artist = ref<Artist|undefined>();
+  const error = ref<ApiError|undefined>();
 
   function init() {
-    artist.value = {};
-    error.value = {};
+    artist.value = undefined;
+    error.value = undefined;
   }
   async function load(artist_slug: String) {
     init();
-    await axios.get(`http://localhost:8002/api/artists/${artist_slug}/`)
-      .then(res => artist.value = res.data)
-      .catch(err => error.value = axiosErrorObject(err));
+    await axios.get(apiUrl(`/artists/${artist_slug}/`))
+      .then(res => artist.value = res.data as Artist)
+      .catch(err => error.value = axiosApiError(err));
   }
 
   return { artist, error, load };

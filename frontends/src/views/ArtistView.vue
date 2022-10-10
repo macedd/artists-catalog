@@ -20,10 +20,10 @@ await store.load(artist_slug);
 
 <template>
   <main>
-    <PageNotFoundView v-if="!!store.error.code" />
+    <PageNotFoundView v-if="!!store.error?.code" />
     <h1 v-else
       class="text-3xl font-bold underline">
-      Hello world! {{ store.artist.name }}
+      Hello world! {{ store.artist?.name }}
     </h1>
   </main>
 </template>
