@@ -5,12 +5,14 @@ import Header from './components/layout/Header.vue'
 </script>
 
 <template>
+<div>
   <Header />
-  <div class="container px-4 h-screen">
+  <div class="container mx-auto">
     <Suspense>
       <RouterView />
     </Suspense>
   </div>
+</div>
 </template>
 
 <style scoped>

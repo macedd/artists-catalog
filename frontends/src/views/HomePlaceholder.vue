@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="px-4 h-screen">
     <img
       class="h-full mx-auto max-h-screen"
       src="@/assets/logo-placeholder.png"

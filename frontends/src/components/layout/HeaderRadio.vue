@@ -5,11 +5,9 @@
   <!-- Player Section Start-->
   <div class="bg-[#212121] py-2 text-white">
     <div
-      class="mx-auto flex items-center justify-center overflow-hidden sm:justify-between md:px-0 lg:w-4/5"
-    >
+      class="container mx-auto flex items-center justify-center overflow-hidden sm:justify-between md:px-0 lg:w-4/5">
       <div
-        class="flex flex-col-reverse items-start pl-8 sm:items-center md:flex-row md:justify-between"
-      >
+        class="flex flex-col-reverse items-start pl-8 sm:items-center md:flex-row md:justify-between">
         <div class="mt-2 flex items-center justify-center">
           <img
             src="@/assets/svgs/rewind.svg"

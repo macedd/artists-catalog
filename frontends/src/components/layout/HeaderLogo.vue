@@ -3,11 +3,11 @@
 
 <template>
   <!-- Logo and Search Section Start -->
-  <div class="mt-2 flex flex-col justify-between md:flex-row md:items-end">
+  <div class="container mx-auto mt-2 flex flex-col justify-between md:flex-row md:items-end">
     <div class="mx-auto md:mx-0">
-      <img class="w-64 md:ml-8" src="@/assets/images/logo-1.png" alt="logo" />
+      <img class="w-64" src="@/assets/images/logo-1.png" alt="logo" />
     </div>
-    <h1 class="mb-4 text-center text-xl font-semibold md:mb-0 md:text-left">
+    <h1 class="mb-4 text-center text-lg font-semibold md:mb-0 md:text-left">
       SOBRE NÓS - CONTATO
     </h1>
     <div class="mr-4 flex flex-col items-center">
