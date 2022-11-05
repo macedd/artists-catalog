@@ -10,7 +10,7 @@ class PortfolioUploadField(models.FileField):
     if model_instance.upload_type == 'music':
       extensions = ['mp3', 'm4a']
     elif model_instance.upload_type == 'drawing':
-      extensions = ['jpg', 'jpeg', 'png', 'gif']
+      extensions = ['jpg', 'jpeg', 'png', 'gif', 'jfif']
     elif model_instance.upload_type == 'photo':
       extensions = ['jpg', 'jpeg', 'png', 'gif']
     elif model_instance.upload_type == 'video':

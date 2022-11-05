@@ -23,7 +23,7 @@ Development
 Translations
 
     # create/update languages
-    django-admin makemessages -l pt_br
+    django-admin makemessages -l pt_BR
     # compile languages
     django-admin compilemessages
 

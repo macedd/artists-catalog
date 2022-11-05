@@ -119,12 +119,15 @@ class Artist(models.Model):
     def original_slug(self):
         return self.past_slugs[0]
 
-    def save(self, *args, **kwargs):
+    def _keep_slug(self):
         self.slug = slugify(self.title)
         # new slug
         if self.slug not in self.past_slugs:
             # todo: make past_slug to be unique (check slug existed in any other artist)
             self.past_slugs.append(slugify(self.title))
+
+    def save(self, *args, **kwargs):
+        self._keep_slug()
         super(Artist, self).save(*args, **kwargs)
 
     class Meta:
