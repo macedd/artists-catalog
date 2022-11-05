@@ -8,7 +8,7 @@ import Footer from './components/layout/Footer.vue'
 <template>
 <div>
   <Header />
-  <div class="container mx-auto my-8">
+  <div class="container mx-auto my-4 md:my-8">
     <Suspense>
       <RouterView />
     </Suspense>

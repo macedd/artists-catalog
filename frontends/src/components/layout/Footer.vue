@@ -5,15 +5,17 @@
 <footer class="p-4 bg-[#212121] md:px-6 md:py-8">
   <div class="container mx-auto">
     <div class="sm:flex sm:items-center sm:justify-between">
+      <!-- Logo -->
       <a class="flex items-center mb-4 sm:mb-0">
           <img src="@/assets/images/logo-1.png"
             class="mr-3 h-8"
             alt="Artejucana logo" />
       </a>
+
       <!-- Social icons -->
       <div
-        class="mb-2 flex items-center rounded-full border-2 border-gray-700 py-1 px-16">
-        <span class="mr-2 font-medium text-gray-500">SIGA</span>
+        class="mb-2 flex items-center rounded-full border-2 border-white py-1 px-16">
+        <span class="mr-2 font-medium text-white">SIGA</span>
 
         <img
           class="mr-2 h-8 w-8"
@@ -29,7 +31,8 @@
         <img class="h-8 w-8" src="@/assets/images/youtube.png" alt="" />
       </div>
 
-      <ul class="flex flex-wrap items-center mb-6 text-sm text-white sm:mb-0 dark:text-gray-400">
+      <!-- Menu -->
+      <ul class="flex flex-wrap items-center mb-6 uppercase text-sm text-white sm:mb-0 dark:text-gray-400">
           <li>
               <a href="#" class="mr-4 hover:underline md:mr-6 ">Sobre Nós</a>
           </li>

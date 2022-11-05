@@ -2,11 +2,12 @@
 import HeaderLogo from './HeaderLogo.vue'
 import HeaderMenu from './HeaderMenu.vue'
 import HeaderRadio from './HeaderRadio.vue'
+import HeaderSocial from './HeaderSocial.vue'
 </script>
 
 <template>
   <div>
-    <HeaderRadio />
+    <HeaderSocial />
     <HeaderLogo />
     <HeaderMenu />
   </div>

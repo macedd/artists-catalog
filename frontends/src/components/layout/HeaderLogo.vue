@@ -3,7 +3,7 @@
 
 <template>
   <!-- Logo and Search Section Start -->
-  <div class="container mx-auto my-4 flex flex-col md:flex-row items-center justify-between">
+  <div class="container mx-auto my-4 md:my-6 flex flex-col md:flex-row items-center justify-between">
     <!-- Logo -->
     <div class="mx-auto md:mx-0">
       <img class="w-64" src="@/assets/images/logo-1.png" alt="logo" />
