@@ -37,7 +37,8 @@ class Article(models.Model):
     )
 
     featured = models.BooleanField(
-        verbose_name=_('Featured')
+        verbose_name=_('Featured'),
+        default=True,
     )
 
     views = models.IntegerField(
@@ -78,3 +79,10 @@ class Article(models.Model):
         
     def __str__(self):
         return self.title
+
+'''
+Other models:
+- Post / Publication
+- Comment
+- 
+'''

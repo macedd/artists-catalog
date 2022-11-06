@@ -5,8 +5,9 @@ from . import views
 
 # Rest Framework
 router = routers.DefaultRouter()
-router.register(r'artists', views.ArtistViewSet)
-router.register(r'categories', views.CategoryViewSet)
+router.register(r'artists', views.ArtistViewSet, basename='artists')
+router.register(r'categories', views.CategoryViewSet, basename='categories')
+router.register(r'articles', views.ArticleViewSet, basename='articles')
 
 app_name = 'api'
 urlpatterns = [

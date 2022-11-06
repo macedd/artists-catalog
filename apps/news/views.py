@@ -5,8 +5,8 @@ from django.views import generic
 
 from .models import Article
 
-# Create your views here.
 
+# receives slug and redirect to actual article link
 def detail_redirect(request, article_slug):
     try:
         article = Article.objects.get(slug=article_slug)
@@ -15,6 +15,8 @@ def detail_redirect(request, article_slug):
     article.views_increment()
     return redirect(article.link)
 
+
+# receives id and redirect to current slug
 def detail_canonical(request, artist_id):
     try:
         article = Article.objects.get(id=artist_id)

@@ -5,7 +5,8 @@ from rest_framework import permissions
 from rest_framework import generics
 
 from artists.models import Artist, Category
-from .serializers import ArtistSerializer, ArtistListSerializer, CategorySerializer
+from news.models import Article
+from .serializers import ArtistSerializer, ArtistListSerializer, CategorySerializer, ArticleSerializer
 from .helpers import MultiSerializerReadOnlyViewSet
 
 class ArtistViewSet(MultiSerializerReadOnlyViewSet):
@@ -34,3 +35,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all().order_by('parent')
     serializer_class = CategorySerializer
 
+class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ArticleSerializer
+    def get_queryset(self):
+        return Article.objects.filter(featured=True).order_by('-created_at')

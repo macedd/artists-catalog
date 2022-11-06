@@ -29,3 +29,7 @@ class ArtistSerializer(serializers.ModelSerializer):
                   'birth_city', 'artistic_kinship', 'groups_affiliation', 'works',
                   'website', 'instagram', 'facebook', 'whatsapp', 'portfolio']
 
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['title', 'slug', 'image', 'created_at']
