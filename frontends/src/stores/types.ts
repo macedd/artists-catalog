@@ -40,6 +40,13 @@ export interface Artist {
   portfolio: ArtistPortfolio[],
 }
 
+export interface Article {
+  title: String,
+  slug: String,
+  image: String,
+  created_at: Date,
+}
+
 export interface ApiError {
   message: String,
   code: String,

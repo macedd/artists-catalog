@@ -27,12 +27,10 @@ class Article(models.Model):
     
     link = models.URLField(
         max_length=120,
-        blank=True,
         verbose_name=_('Hyperlink')
     )
     image = models.ImageField(
         upload_to=news_directory_path,
-        blank=True,
         verbose_name=_('Image')
     )
 

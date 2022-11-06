@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from artists.models import Artist, Category, Portfolio
+from news.models import Article
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,5 +32,5 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = Article
         fields = ['title', 'slug', 'image', 'created_at']
