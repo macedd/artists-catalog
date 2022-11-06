@@ -14,5 +14,9 @@ export default defineConfig(({ command, mode }) => {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
+    // build: {
+    //   manifest: true,
+    //   outDir: '../static/dist'
+    // }
   }
 });

@@ -41,9 +41,9 @@ export interface Artist {
 }
 
 export interface Article {
-  title: String,
-  slug: String,
-  image: String,
+  title: string,
+  slug: string,
+  image: string,
   created_at: Date,
 }
 

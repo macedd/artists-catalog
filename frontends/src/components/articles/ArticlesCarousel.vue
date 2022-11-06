@@ -12,11 +12,11 @@ defineProps<{
 
 let currentSlide = ref(0);
 
-function slideTo(val) {
+function slideTo(val: number) {
   currentSlide.value = val
 }
 
-function articleUrl(article) {
+function articleUrl(article: Article) {
   return `/news/${article.slug}/`;
 }
 

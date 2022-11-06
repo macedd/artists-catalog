@@ -21,7 +21,8 @@ await store.load(artist_slug);
 
 <template>
   <main>
-    <PageNotFoundView v-if="!!store.error?.code" />
+    <PageNotFoundView
+      v-if="!!store.error?.code || !store.artist" />
     <ArtistDetail v-else
       :artist="store.artist" />
   </main>
