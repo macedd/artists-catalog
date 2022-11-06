@@ -13,6 +13,8 @@ if [[ $COMMAND = "dev" ]]; then
 elif [[ $COMMAND = "build" ]]; then
 
     cd frontends
+    source /usr/local/nvm/nvm.sh
+    nvm use 16
     npm install
     npm run build-only
 
