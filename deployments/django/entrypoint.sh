@@ -12,8 +12,9 @@ if [[ $COMMAND = "dev" ]]; then
 
 elif [[ $COMMAND = "build" ]]; then
 
-    cd apps/theme/static_src
-    npx tailwindcss -i ./tailwind.css -o ./static/theme/tailwind.css --minify
+    cd frontends
+    npm install
+    npm run build-only
 
 elif [[ $COMMAND = "prod" ]]; then
 
