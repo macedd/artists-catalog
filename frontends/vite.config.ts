@@ -4,6 +4,8 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 
+const { resolve } = require('path');
+
 // https://vitejs.dev/config/
 
 export default defineConfig(({ command, mode }) => {
@@ -14,9 +16,16 @@ export default defineConfig(({ command, mode }) => {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
-    // build: {
-    //   manifest: true,
-    //   outDir: '../static/dist'
-    // }
+    build: {
+      manifest: true,
+      // outDir: '../static/dist',
+      emptyOutDir: true,
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, 'src/main.ts')
+        },
+      }
+    },
+    base: (process.env.NODE_ENV == 'production') ? '/static/' : '',
   }
 });
