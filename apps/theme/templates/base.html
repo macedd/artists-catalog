@@ -1,19 +1,22 @@
 {% load static %}
+{% load vite %}
 <!DOCTYPE html>
 <html class="no-js" lang="">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
 		{% block meta %}
     <title>
     </title>
     <meta name="description" content="" />
 		{% endblock %}
+    
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png"/> -->
 
     <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="{% static 'theme/tailwind.css' %}"/>
+    {% vite_styles 'src/main.ts' %}
   </head>
   <body>
     <!--[if lte IE 9]>
@@ -24,16 +27,10 @@
       </p>
     <![endif]-->
 		
-		<div class="container mx-auto px-4 h-screen">
-			<img
-				class="h-full mx-auto"
-				src="{% static 'theme/logo-home.png' %}"
-				alt="Artejucana">
-		</div>
+		{% block content %}
+		{% endblock %}
 
     <!-- ========================= JS here ========================= -->
-    <!-- <script src="assets/js/tiny-slider.js"></script>
-    <script src="assets/js/wow.min.js"></script>
-    <script src="assets/js/main.js"></script> -->
+    {% vite_scripts 'src/main.ts' %}
   </body>
 </html>

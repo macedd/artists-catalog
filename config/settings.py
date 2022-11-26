@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'static_precompiler',
     'storages',
     'django_browser_reload',
+    'django_extensions',
 
     'rest_framework',
     'corsheaders',
@@ -85,6 +86,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'vite': 'theme.templatetags.vite',
+            },
         },
     },
 ]
@@ -142,6 +146,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = '/code/static'
+STATICFILES_DIRS = [
+    BASE_DIR / "frontends/dist",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

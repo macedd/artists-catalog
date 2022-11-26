@@ -5,8 +5,13 @@ from django.views import generic
 
 # Create your views here.
 
+# homepage placeholder
 def homepage(request):
-    return render(request, 'home/index.html')
+    return render(request, 'home/placeholder.html')
+
+# vuejs application
+def vuejs(request, resource):
+    return render(request, 'home/vuejs.html')
 
 
 

@@ -4,6 +4,7 @@ django-storages
 django-browser-reload
 djangorestframework
 django-cors-headers
+django-extensions
 
 mysqlclient
 Pillow

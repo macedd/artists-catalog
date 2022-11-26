@@ -32,3 +32,9 @@ Frontends
     cd frontends
     npm install
     npm run dev
+
+Debug Django
+
+    docker ps
+    docker attach $containerID
+    # quit with ctrl+p ctrl+q
