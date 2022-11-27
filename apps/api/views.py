@@ -34,6 +34,7 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all().order_by('parent')
     serializer_class = CategorySerializer
+    lookup_field = 'slug'
 
 class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ArticleSerializer
