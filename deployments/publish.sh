@@ -7,7 +7,8 @@ BASEDIR=`realpath $(dirname "$0")/../`
 
 echo "HOST=$HOST COMMAND=$COMMAND"
 
-if [[ $COMMAND = "publish" ]]; then
+if [[ $COMMAND = "publish" ]]
+then
 
     TMP_FOLDER="$FOLDER/tmp"
     APP_FOLDER="$FOLDER/catalog"
@@ -22,6 +23,7 @@ if [[ $COMMAND = "publish" ]]; then
         mkdir -p \$TMP && \
         docker-compose build && \
         docker-compose up -d && \
+        docker system prune -f && \
         docker-compose exec -T web python manage.py migrate --noinput && \
         docker-compose exec -T web deployments/django/entrypoint.sh build && \
         docker-compose exec -T web python manage.py collectstatic --noinput && \
@@ -29,5 +31,7 @@ if [[ $COMMAND = "publish" ]]; then
         docker-compose logs | tail -n 10"
 
 else
+
     echo "$COMMAND command not implemented"
+
 fi
