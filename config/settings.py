@@ -197,3 +197,11 @@ LOGGING = {
         },
     },
 }
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': tuple(filter(None, (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer' if DEBUG else None,
+    )))
+}
