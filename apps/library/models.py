@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
 
-from sorl.thumbnail import get_thumbnail
+import sorl.thumbnail
 
 class SlugsBase(models.Model):
   _slug_from = None
@@ -72,12 +72,13 @@ class ThumbnailsBase(models.Model):
     if not image:
       return None
     # cache key for thumbnail
-    key = '%s-%s-%s' % (field, size, crop)
+    key = '%s-%s-%s-%s' % (field, size, crop, image)
     if not key in self.images_thumbnails:
       # loads new thumbnail and saves reference
-      self.images_thumbnails[key] = get_thumbnail(image, size, crop=crop, quality=90).url
+      self.images_thumbnails[key] = sorl.thumbnail.get_thumbnail(image, size, crop=crop, quality=90).url
       self.save(update_fields=['images_thumbnails'])
     # reads thumbnail url from model cache
     return self.images_thumbnails[key]
+
   class Meta:
     abstract = True
