@@ -18,7 +18,20 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
     queryset = Artist.objects.all().order_by('-created_at')
     lookup_field = 'slug'
 
+    def get_queryset(self):
+        """
+        Optionally restricts the returned artists to a given category,
+        """
+        queryset = Artist.objects.all().order_by('-created_at')
+        category = self.request.query_params.get('category')
+        if category is not None:
+            queryset = queryset.filter(categories__slug=category)
+        return queryset
+
     def get_object(self):
+        """
+        Lookup slug and past_slugs for a given object.
+        """
         queryset = self.filter_queryset(self.get_queryset())
 
         try:
@@ -38,5 +51,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
 class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ArticleSerializer
+
     def get_queryset(self):
         return Article.objects.filter(featured=True).order_by('-created_at')
+

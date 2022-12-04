@@ -198,6 +198,8 @@ LOGGING = {
     },
 }
 
+# Rest Framework
+#
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': tuple(filter(None, (

@@ -28,7 +28,7 @@ then
         docker-compose exec -T web deployments/django/entrypoint.sh build && \
         docker-compose exec -T web python manage.py collectstatic --noinput && \
         docker-compose exec web entrypoint.sh reload && \
-        docker-compose logs | tail -n 10"
+        docker-compose logs | tail -n 14"
 
 else
 
