@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from sorl.thumbnail import get_thumbnail
 
 from artists.models import Artist, Category, Portfolio
 from news.models import Article
@@ -24,9 +23,9 @@ class ArtistListSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
     photo_thumbnail = serializers.SerializerMethodField()
 
-    def get_photo_thumbnail(self, obj):
-        if obj.photo:
-            return get_thumbnail(obj.photo, '400x400', crop='center', quality=90).url
+    def get_photo_thumbnail(self, obj: Artist):
+        return obj.get_photo_thumbnail('400x400')
+    
     class Meta:
         model = Artist
         fields = ['name', 'slug', 'title', 'photo_thumbnail', 'categories']

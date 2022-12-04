@@ -3,6 +3,8 @@ from django.core import validators
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+from sorl.thumbnail import get_thumbnail
+
 from .fields import PortfolioUploadField
 from apps.library.models import SlugsBase, TimestampsBase, ViewsBase
 
@@ -30,6 +32,11 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase):
         blank=True,
         verbose_name=_('Photo')
     )
+    photo_thumbnails = models.JSONField(
+        default=dict,
+        verbose_name=_('Photo thumbnails')
+    )
+
     categories = models.ManyToManyField(
         'Category',
         blank=True,
@@ -90,6 +97,15 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase):
         blank=True,
         verbose_name=_('Whatsapp')
     )
+
+    def get_photo_thumbnail(self, size):
+        if not self.photo:
+            return None
+        if not size in self.photo_thumbnails:
+            self.photo_thumbnails[size] = get_thumbnail(self.photo, size, crop='center', quality=90).url
+            self.save(update_fields=['photo_thumbnails'])
+        return self.photo_thumbnails[size]
+    
 
     def save(self, *args, **kwargs):
         self.save_slug()
