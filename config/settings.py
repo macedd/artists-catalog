@@ -205,8 +205,14 @@ LOGGING = {
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
             'propagate': False,
         },
+        'django.db': {
+            'level': 'DEBUG',
+            # 'handlers': ['console'],
+        }
     },
 }
+if not DEBUG:
+    LOGGING['loggers'].pop('django.db')
 
 # Rest Framework
 #
