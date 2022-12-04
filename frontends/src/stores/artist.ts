@@ -2,6 +2,7 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from 'axios';
 import _filter from 'lodash/filter'
+import _uniqBy from 'lodash/uniqBy'
 
 import { axiosApiError, apiUrl } from './helpers';
 import type { Artist, ApiError } from './types';
@@ -44,7 +45,10 @@ export const useArtistsListStore = defineStore("artistsList", () => {
   }
 
   function artistsByCategory(category_slug: String) {
-    return _filter(artists.value, {categories: [{slug: category_slug}]})
+    return _uniqBy(Array().concat(
+      _filter(artists.value, {categories: [{slug: category_slug}]}),
+      _filter(artists.value, {categories: [{parent: {slug: category_slug}}]})
+    ), 'slug')
   }
 
   return { artists, error, load, artistsByCategory };

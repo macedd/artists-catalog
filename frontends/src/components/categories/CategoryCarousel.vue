@@ -31,10 +31,10 @@ if (breakpoints.isGreater('md')) {
 <template>
   <!-- category -->
   <div class="my-8">
-    <p
+    <h3
       class="bg-[#212121] py-2 px-8 text-xl font-medium uppercase text-white md:text-3xl">
       {{ category.title }}
-    </p>
+    </h3>
     <!-- gallery -->
     <Carousel
       :items-to-show="itemsToShow"

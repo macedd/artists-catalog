@@ -14,6 +14,8 @@ await Promise.all([
   artistsStore.load()
 ])
 
+const categories = categoriesStore.categoriesRoot()
+
 </script>
 
 <template>
@@ -21,8 +23,8 @@ await Promise.all([
     <div v-if="!!categoriesStore.error?.code"
       class="error" />
     <CategoryCarousel
-      v-else-if="categoriesStore.categories?.length"
-      v-for="category in categoriesStore.categories"
+      v-else-if="categories?.length"
+      v-for="category in categories"
       :key="category.slug"
       :category="category" />
   </section>

@@ -3,14 +3,16 @@ from rest_framework import serializers
 from artists.models import Artist, Category, Portfolio
 from news.models import Article
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ['title', 'slug', 'parent']
-class ArtistCategorySerializer(serializers.ModelSerializer):
+class ParentCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['slug']
+class CategorySerializer(serializers.ModelSerializer):
+    parent = ParentCategorySerializer()
+    class Meta:
+        model = Category
+        fields = ['title', 'slug', 'parent']
+        # fields = '__all__'
 
 class PortfolioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,7 +20,7 @@ class PortfolioSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'upload_type', 'upload', 'link']
 
 class ArtistListSerializer(serializers.ModelSerializer):
-    categories = ArtistCategorySerializer(many=True)
+    categories = CategorySerializer(many=True)
     class Meta:
         model = Artist
         fields = ['name', 'slug', 'title', 'photo', 'categories']
