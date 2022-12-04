@@ -11,11 +11,11 @@ await store.load();
 </script>
 
 <template>
-  <main>
+  <section>
     <div v-if="!!store.error?.code"
       class="error" />
     <ArticleSlider
       v-else-if="store.articles?.length"
       :articles="store.articles" />
-  </main>
+  </section>
 </template>

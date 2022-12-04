@@ -22,3 +22,21 @@ export const useArtistDetailStore = defineStore("artistDetail", () => {
 
   return { artist, error, load };
 });
+
+export const useArtistsCategoryStore = defineStore("artistsCategoryList", () => {
+  const artists = ref<[Artist]|undefined>();
+  const error = ref<ApiError|undefined>();
+
+  function init() {
+    artists.value = undefined;
+    error.value = undefined;
+  }
+  async function load(category_slug: String) {
+    init();
+    await axios.get(apiUrl('/artists/') + `?category=${category_slug}`)
+      .then(res => artists.value = res.data as [Artist])
+      .catch(err => error.value = axiosApiError(err));
+  }
+
+  return { artists, error, load };
+});

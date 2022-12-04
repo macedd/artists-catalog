@@ -23,7 +23,7 @@ function articleUrl(article: Article) {
 </script>
 
 <template>
-  <main>
+  <div>
     <!-- active slide -->
     <Carousel
       :items-to-show="1"
@@ -55,7 +55,7 @@ function articleUrl(article: Article) {
         </div>
       </Slide>
     </Carousel>
-  </main>
+  </div>
 </template>
 
 <style scoped>
