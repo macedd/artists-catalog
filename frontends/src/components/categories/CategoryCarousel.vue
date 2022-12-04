@@ -18,8 +18,8 @@ const store = useArtistsListStore();
 const artists = store.artistsByCategory(props.category.slug)
 
 // Carousel configuration
-let itemsToShow = 3;
 const carousel = ref(null)
+let itemsToShow = 3;
 
 // Responsive breakpoints
 const breakpoints = useBreakpoints(breakpointsTailwind)
@@ -41,6 +41,7 @@ if (breakpoints.isGreater('md')) {
       :items-to-scroll="itemsToShow"
       :transition=500
       :wrap-around="false"
+      snap-align="start"
       ref="carousel">
       <Slide v-for="(artist, index) in artists" :key="artist.slug"
         style="align-items: flex-start;"
@@ -63,16 +64,16 @@ if (breakpoints.isGreater('md')) {
       </Slide>
 
       <!-- navigation -->
-      <template #addons>
+      <template #addons="{ slidesCount, currentSlide }">
         <div @click="carousel.next"
           class="p-4 cursor-pointer absolute top-1/2 -right-4 md:-right-8 -translate-y-1/2"
-          v-if="artists.length > itemsToShow">
+          v-if="currentSlide < (slidesCount - itemsToShow)">
           <img class="w-10 md:w-14"
             src="@/assets/images/carousel-arrow.png" alt="arrow-right" />
         </div>
         <div @click="carousel.prev"
           class="p-4 cursor-pointer absolute top-1/2 -left-4 md:-left-8 -translate-y-1/2 rotate-180"
-          v-if="artists.length > itemsToShow">
+          v-if="currentSlide > 0">
           <img class="w-10 md:w-14"
             src="@/assets/images/carousel-arrow.png" alt="arrow-left" />
         </div>
