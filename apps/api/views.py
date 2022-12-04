@@ -22,7 +22,7 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         """
         Optionally restricts the returned artists to a given category,
         """
-        queryset = Artist.objects.order_by('-featured')
+        queryset = Artist.objects.order_by('-featured', '-views', 'created_at')
         category = self.request.query_params.get('category')
         if category is not None:
             queryset = queryset.filter(Q(categories__slug=category) | Q(categories__parent__slug=category))
@@ -55,7 +55,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         return (Category.objects
             .prefetch_related('parent')
-            .order_by('parent'))
+            .order_by('-featured', 'created_at'))
 
 class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ArticleSerializer

@@ -37,8 +37,10 @@ class ArtistAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['title', 'parent']}),
+        (_('Homepage Featured'), {'fields': ['featured']}),
     ]
-    list_display = ('title', 'parent')
+    list_filter = ['featured']
+    list_display = ('title', 'parent', 'featured')
 
 class PortfolioAdmin(admin.ModelAdmin):
     fieldsets = [

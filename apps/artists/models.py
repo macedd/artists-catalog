@@ -117,6 +117,11 @@ class Category(SlugsBase, TimestampsBase):
         on_delete=models.CASCADE,
         verbose_name=_('Parent category')
     )
+    featured = models.BooleanField(
+        default=False,
+        verbose_name=_('Featured')
+    )
+
     class Meta:
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
