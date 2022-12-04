@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -109,6 +110,15 @@ DATABASES = {
     }
 }
 
+# Cache
+# https://docs.djangoproject.com/en/dev/topics/cache/
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'django_cache',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

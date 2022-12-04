@@ -47,12 +47,12 @@ function articleUrl(article: Article) {
       v-model="currentSlide"
       class="md:w-9/12 mx-auto">
       <Slide v-for="(article, index) in articles" :key="article.slug">
-        <div class="relative bg-center bg-cover bg-indigo-300 aspect-[5/3] w-full border"
+        <article class="relative bg-center bg-cover bg-indigo-300 aspect-[5/3] w-full border"
           :style="{ backgroundImage: `url('${article.image}')` }"
           @click="slideTo(index)">
           <p class="absolute w-full text-sm	uppercase font-serif text-left bottom-0 left-0 p-1 truncate bg-white">
             {{ article.title }}</p>
-        </div>
+        </article>
       </Slide>
     </Carousel>
   </div>

@@ -50,16 +50,16 @@ if (breakpoints.isGreater('md')) {
           class="mx-3 mt-3 text-center">
           <img alt="pic"
             class="aspect-square object-cover"
-            :src="artist.photo"
-            v-if="artist.photo" />
+            :src="artist.photo_thumbnail"
+            v-if="artist.photo_thumbnail" />
           <img alt="pic"
             class="aspect-square object-contain"
             v-else
             src="@/assets/images/logo-1.png" />
-          <p class="text-lg font-bold uppercase md:text-xl line-clamp-2">
-            {{ artist.name }}</p>
-          <p class="font-medium text-gray-500 md:text-lg line-clamp-2">
-            {{ artist.title }}</p>
+          <h4 class="text-lg font-bold uppercase md:text-xl line-clamp-2">
+            {{ artist.name }}</h4>
+          <em class="font-medium text-gray-500 md:text-lg line-clamp-2">
+            {{ artist.title }}</em>
         </router-link>
       </Slide>
 

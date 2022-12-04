@@ -10,4 +10,4 @@ mysqlclient
 Pillow
 boto3
 
-# sorl-thumbnail 
+sorl-thumbnail
