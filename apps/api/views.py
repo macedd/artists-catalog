@@ -16,14 +16,13 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         'list': ArtistListSerializer,
         'retrieve': ArtistSerializer,
     }
-    queryset = Artist.objects.all().order_by('-created_at')
     lookup_field = 'slug'
 
     def get_queryset(self):
         """
         Optionally restricts the returned artists to a given category,
         """
-        queryset = Artist.objects.order_by('-created_at')
+        queryset = Artist.objects.order_by('-featured')
         category = self.request.query_params.get('category')
         if category is not None:
             queryset = queryset.filter(Q(categories__slug=category) | Q(categories__parent__slug=category))
