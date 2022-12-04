@@ -9,21 +9,18 @@
       <img class="w-64" src="@/assets/images/logo-1.png" alt="logo" />
     </div>
     <!-- Search box -->
-    <div class="flex flex-col mt-4 md:mt-0">
+    <!-- <div class="flex flex-col mt-4 md:mt-0">
       <div
         class="flex items-center justify-between rounded-full border-[3px] border-black py-2 px-4">
         <input
           class="mr-2 text-sm font-medium uppercase text-gray-500 outline-none"
-          placeholder="Estilo nome do artista trecho da obra"
-        />
-
+          placeholder="Estilo nome do artista trecho da obra" />
         <img
           class="h-8 w-8"
           src="@/assets/images/header-search.png"
-          alt="search"
-        />
+          alt="search" />
       </div>
-    </div>
+    </div> -->
   </div>
   <!-- Logo and Search Section End -->
 </template>
