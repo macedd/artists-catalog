@@ -7,6 +7,10 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['title', 'slug', 'parent']
+class ArtistCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['slug']
 
 class PortfolioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,9 +18,10 @@ class PortfolioSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'upload_type', 'upload', 'link']
 
 class ArtistListSerializer(serializers.ModelSerializer):
+    categories = ArtistCategorySerializer(many=True)
     class Meta:
         model = Artist
-        fields = ['name', 'slug', 'title', 'photo',]
+        fields = ['name', 'slug', 'title', 'photo', 'categories']
 
 class ArtistSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)

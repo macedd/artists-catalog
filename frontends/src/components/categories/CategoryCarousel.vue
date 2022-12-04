@@ -6,7 +6,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 import type { ArtistCategory, Artist } from '../../stores/types';
-import { useArtistsCategoryStore } from '../../stores/artist';
+import { useArtistsListStore } from '../../stores/artist';
 
 // Properties
 const props = defineProps<{
@@ -14,8 +14,8 @@ const props = defineProps<{
 }>();
 
 // Store loading artists
-const store = useArtistsCategoryStore();
-await store.load(props.category.slug);
+const store = useArtistsListStore();
+const artists = store.artistsByCategory(props.category.slug)
 
 // Carousel configuration
 let itemsToShow = 3;
@@ -39,10 +39,10 @@ if (breakpoints.isGreater('md')) {
     <Carousel
       :items-to-show="itemsToShow"
       :items-to-scroll="itemsToShow"
-      transition="500"
-      :wrap-around="true"
+      :transition=500
+      :wrap-around="false"
       ref="carousel">
-      <Slide v-for="(artist, index) in store.artists" :key="artist.slug"
+      <Slide v-for="(artist, index) in artists" :key="artist.slug"
         style="align-items: flex-start;"
         >
         <router-link to="#"
@@ -61,16 +61,18 @@ if (breakpoints.isGreater('md')) {
             {{ artist.title }}</p>
         </router-link>
       </Slide>
+
+      <!-- navigation -->
       <template #addons>
         <div @click="carousel.next"
           class="p-4 cursor-pointer absolute top-1/2 -right-4 md:-right-8 -translate-y-1/2"
-          v-if="store.artists.length > itemsToShow">
+          v-if="artists.length > itemsToShow">
           <img class="w-10 md:w-14"
             src="@/assets/images/carousel-arrow.png" alt="arrow-right" />
         </div>
         <div @click="carousel.prev"
           class="p-4 cursor-pointer absolute top-1/2 -left-4 md:-left-8 -translate-y-1/2 rotate-180"
-          v-if="store.artists.length > itemsToShow">
+          v-if="artists.length > itemsToShow">
           <img class="w-10 md:w-14"
             src="@/assets/images/carousel-arrow.png" alt="arrow-left" />
         </div>

@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.db.models import Q
 
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -45,7 +46,7 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         return obj
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Category.objects.all().order_by('parent')
+    queryset = Category.objects.all().order_by('-parent')
     serializer_class = CategorySerializer
     lookup_field = 'slug'
 

@@ -3,20 +3,26 @@ import { onMounted } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 
 import { useCategoryListStore } from '../../stores/category';
+import { useArtistsListStore } from '../../stores/artist';
 import CategoryCarousel from '../categories/CategoryCarousel.vue';
 
-const store = useCategoryListStore();
-await store.load();
+const categoriesStore = useCategoryListStore();
+const artistsStore = useArtistsListStore();
+
+await Promise.all([
+  categoriesStore.load(),
+  artistsStore.load()
+])
 
 </script>
 
 <template>
   <section>
-    <div v-if="!!store.error?.code"
+    <div v-if="!!categoriesStore.error?.code"
       class="error" />
     <CategoryCarousel
-      v-else-if="store.categories?.length"
-      v-for="category in store.categories"
+      v-else-if="categoriesStore.categories?.length"
+      v-for="category in categoriesStore.categories"
       :key="category.slug"
       :category="category" />
   </section>

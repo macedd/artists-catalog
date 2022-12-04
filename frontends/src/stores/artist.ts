@@ -1,6 +1,7 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from 'axios';
+import _filter from 'lodash/filter'
 
 import { axiosApiError, apiUrl } from './helpers';
 import type { Artist, ApiError } from './types';
@@ -23,7 +24,7 @@ export const useArtistDetailStore = defineStore("artistDetail", () => {
   return { artist, error, load };
 });
 
-export const useArtistsCategoryStore = defineStore("artistsCategoryList", () => {
+export const useArtistsListStore = defineStore("artistsList", () => {
   const artists = ref<[Artist]|undefined>();
   const error = ref<ApiError|undefined>();
 
@@ -31,12 +32,20 @@ export const useArtistsCategoryStore = defineStore("artistsCategoryList", () => 
     artists.value = undefined;
     error.value = undefined;
   }
-  async function load(category_slug: String) {
+  async function load(category_slug: String|null = null) {
     init();
-    await axios.get(apiUrl('/artists/') + `?category=${category_slug}`)
+    let url = apiUrl('/artists/')
+    if (category_slug) {
+      url = url + `?category=${category_slug}`
+    }
+    await axios.get(url)
       .then(res => artists.value = res.data as [Artist])
       .catch(err => error.value = axiosApiError(err));
   }
 
-  return { artists, error, load };
+  function artistsByCategory(category_slug: String) {
+    return _filter(artists.value, {categories: [{slug: category_slug}]})
+  }
+
+  return { artists, error, load, artistsByCategory };
 });
