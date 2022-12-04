@@ -99,6 +99,9 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase):
     )
 
     def get_photo_thumbnail(self, size):
+        '''
+        Caches thumbnail sizes in the model to avoid sorl.thumbnail cache lookup for each image
+        '''
         if not self.photo:
             return None
         if not size in self.photo_thumbnails:
