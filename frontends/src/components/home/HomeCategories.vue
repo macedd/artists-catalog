@@ -3,7 +3,6 @@ import { onMounted } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 
 import { useCategoryListStore } from '../../stores/category';
-import CategoryBar from '../categories/CategoryBar.vue';
 import CategoryCarousel from '../categories/CategoryCarousel.vue';
 
 const store = useCategoryListStore();
