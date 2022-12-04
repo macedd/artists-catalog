@@ -3,10 +3,8 @@ from django.core import validators
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-from sorl.thumbnail import get_thumbnail
-
 from .fields import PortfolioUploadField
-from apps.library.models import SlugsBase, TimestampsBase, ViewsBase
+from apps.library.models import SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase
 
 # Create your models here.
 
@@ -16,7 +14,7 @@ def artist_directory_path(instance: models.Model, filename: str):
     # file will be uploaded to MEDIA_ROOT/<slug>/<filename>
     return 'artists/{0}/{1}'.format(slug, filename)
 
-class Artist(SlugsBase, TimestampsBase, ViewsBase):
+class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
     _slug_from = 'title'
 
     name = models.CharField(
@@ -31,10 +29,6 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase):
         upload_to=artist_directory_path,
         blank=True,
         verbose_name=_('Photo')
-    )
-    photo_thumbnails = models.JSONField(
-        default=dict,
-        verbose_name=_('Photo thumbnails')
     )
 
     categories = models.ManyToManyField(
@@ -97,18 +91,6 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase):
         blank=True,
         verbose_name=_('Whatsapp')
     )
-
-    def get_photo_thumbnail(self, size):
-        '''
-        Caches thumbnail sizes in the model to avoid sorl.thumbnail cache lookup for each image
-        '''
-        if not self.photo:
-            return None
-        if not size in self.photo_thumbnails:
-            self.photo_thumbnails[size] = get_thumbnail(self.photo, size, crop='center', quality=90).url
-            self.save(update_fields=['photo_thumbnails'])
-        return self.photo_thumbnails[size]
-    
 
     def save(self, *args, **kwargs):
         self.save_slug()

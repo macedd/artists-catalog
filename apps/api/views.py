@@ -44,6 +44,9 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         # May raise a permission denied
         self.check_object_permissions(self.request, obj)
 
+        # artist view count
+        obj.views_increment()
+
         return obj
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):

@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
 
+from sorl.thumbnail import get_thumbnail
+
 class SlugsBase(models.Model):
   _slug_from = None
 
@@ -53,5 +55,29 @@ class ViewsBase(models.Model):
   def views_increment(self):
     self.objects.filter(id=self.id).update(views=models.F('views') + 1)
   
+  class Meta:
+    abstract = True
+
+class ThumbnailsBase(models.Model):
+  images_thumbnails = models.JSONField(
+      default=dict,
+      verbose_name=_('Images thumbnails')
+  )
+
+  def get_image_thumbnail(self, field, size, crop='center'):
+    '''
+    Caches thumbnail sizes in the model to avoid sorl.thumbnail cache lookup for each image
+    '''
+    image = getattr(self, field)
+    if not image:
+      return None
+    # cache key for thumbnail
+    key = '%s-%s-%s' % (field, size, crop)
+    if not key in self.images_thumbnails:
+      # loads new thumbnail and saves reference
+      self.images_thumbnails[key] = get_thumbnail(image, size, crop=crop, quality=90).url
+      self.save(update_fields=['images_thumbnails'])
+    # reads thumbnail url from model cache
+    return self.images_thumbnails[key]
   class Meta:
     abstract = True

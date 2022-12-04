@@ -24,7 +24,7 @@ class ArtistListSerializer(serializers.ModelSerializer):
     photo_thumbnail = serializers.SerializerMethodField()
 
     def get_photo_thumbnail(self, obj: Artist):
-        return obj.get_photo_thumbnail('400x400')
+        return obj.get_image_thumbnail('photo', '400x400')
     
     class Meta:
         model = Artist
