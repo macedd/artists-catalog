@@ -7,9 +7,9 @@
     <div class="sm:flex sm:items-center sm:justify-between">
       <!-- Logo -->
       <a class="flex items-center mb-4 sm:mb-0">
-          <img src="@/assets/images/logo-1.png"
+          <img src="@/assets/images/artejucana-UFU.png"
             class="mr-3 h-8"
-            alt="Artejucana logo" />
+            alt="Artejucana e UFU" />
       </a>
 
       <!-- Social icons -->

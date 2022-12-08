@@ -33,9 +33,10 @@ function articleUrl(article: Article) {
       id="gallery">
       <Slide v-for="article in articles" :key="article.slug">
         <a :href="articleUrl(article)" 
+          target="_blank"
           class="relative bg-center bg-cover bg-indigo-300 aspect-[4/2] w-full"
           :style="{ backgroundImage: `url('${article.image}')` }">
-          <p class="absolute w-full text-xl	uppercase font-serif text-left bottom-6 left-0 p-4 bg-white/70">
+          <p class="absolute w-full text-xl	uppercase font-serif text-left bottom-6 left-0 p-4 bg-white/70 line-clamp-2">
             {{ article.title }}</p>
         </a>
       </Slide>
@@ -50,7 +51,7 @@ function articleUrl(article: Article) {
         <article class="relative bg-center bg-cover bg-indigo-300 aspect-[5/3] w-full border"
           :style="{ backgroundImage: `url('${article.image_thumbnail}')` }"
           @click="slideTo(index)">
-          <p class="absolute w-full text-sm	uppercase font-serif text-left bottom-0 left-0 p-1 truncate bg-white">
+          <p class="absolute w-full text-sm	uppercase font-serif text-left bottom-0 left-0 p-1 line-clamp-1 bg-white">
             {{ article.title }}</p>
         </article>
       </Slide>

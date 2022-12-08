@@ -15,7 +15,7 @@ def artist_directory_path(instance: models.Model, filename: str):
     return 'artists/{0}/{1}'.format(slug, filename)
 
 class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
-    _slug_from = 'title'
+    _slug_from = 'name'
 
     name = models.CharField(
         max_length=120,
