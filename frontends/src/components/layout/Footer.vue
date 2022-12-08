@@ -17,18 +17,32 @@
         class="mb-2 flex items-center rounded-full border-2 border-white py-1 px-16">
         <span class="mr-2 font-medium text-white">SIGA</span>
 
-        <img
-          class="mr-2 h-8 w-8"
-          src="@/assets/images/facebook.png"
-          alt="facebook"
-        />
-        <img class="mr-2 h-8 w-8" src="@/assets/images/instagram.png" alt="" />
-        <img
-          class="mr-2 h-8 w-8"
-          src="@/assets/images/whatsapp.png"
-          alt="whatsapp"
-        />
-        <img class="h-8 w-8" src="@/assets/images/youtube.png" alt="" />
+        <a href="https://www.facebook.com/ArtejucanA-105285695477540"
+          target="_blank">
+          <img
+            class="mr-2 h-8 w-8"
+            src="@/assets/images/facebook.png"
+            alt="Facebook" />
+        </a>
+        <a href="https://www.instagram.com/artejucana/"
+          target="_blank">
+          <img class="mr-2 h-8 w-8"
+            src="@/assets/images/instagram.png"
+            alt="Instagram" />
+        </a>
+        <a href="https://wa.me/5534996664244"
+          target="_blank">
+          <img
+            class="mr-2 h-8 w-8"
+            src="@/assets/images/whatsapp.png"
+            alt="Whatsapp" />
+        </a>
+        <a href="https://www.youtube.com/@ArtejucanA/videos"
+          target="_blank">
+          <img class="h-8 w-8"
+            src="@/assets/images/youtube.png"
+            alt="Youtube" />
+        </a>
       </div>
 
       <!-- Menu -->
