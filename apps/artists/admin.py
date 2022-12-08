@@ -21,7 +21,7 @@ class ArtistAdmin(admin.ModelAdmin):
         (_('Related Artists'), {'fields': ['related']}),
     ]
     inlines = (PortfolioInline,)                                                  
-    list_display = ('title', 'get_categories', 'featured', 'created_at')
+    list_display = ('name', 'get_categories', 'featured', 'created_at')
     list_filter = ['featured', 'categories', 'created_at']
     filter_horizontal = ('categories', 'related')
 

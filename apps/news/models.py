@@ -15,7 +15,7 @@ class Article(SlugsBase, TimestampsBase, ViewsBase):
 
     title = models.CharField(
         max_length=240,
-        verbose_name=_('Name')
+        verbose_name=_('Title')
     )
     
     link = models.URLField(
