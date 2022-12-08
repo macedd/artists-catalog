@@ -53,7 +53,7 @@ class ViewsBase(models.Model):
   )
 
   def views_increment(self):
-    self.objects.filter(id=self.id).update(views=models.F('views') + 1)
+    self.__class__.objects.filter(id=self.id).update(views=models.F('views') + 1)
   
   class Meta:
     abstract = True

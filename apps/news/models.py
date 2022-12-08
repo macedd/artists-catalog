@@ -3,14 +3,14 @@ from django.core import validators
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-from apps.library.models import SlugsBase, TimestampsBase, ViewsBase
+from apps.library.models import SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase
 
 def news_directory_path(instance: models.Model, filename: str):
     slug = instance.slug_original
     # file will be uploaded to MEDIA_ROOT/news/<slug>_<filename>
     return 'news/{0}_{1}'.format(slug, filename)
 
-class Article(SlugsBase, TimestampsBase, ViewsBase):
+class Article(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
     _slug_from = 'title'
 
     title = models.CharField(

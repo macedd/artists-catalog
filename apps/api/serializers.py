@@ -43,6 +43,14 @@ class ArtistSerializer(serializers.ModelSerializer):
                   'website', 'instagram', 'facebook', 'whatsapp', 'portfolio']
 
 class ArticleSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    image_thumbnail = serializers.SerializerMethodField()
+
+    def get_image(self, obj: Article):
+        return obj.get_image_thumbnail('image', '1440')
+    def get_image_thumbnail(self, obj: Article):
+        return obj.get_image_thumbnail('image', '480')
+
     class Meta:
         model = Article
-        fields = ['title', 'slug', 'image', 'created_at']
+        fields = ['title', 'slug', 'image', 'image_thumbnail', 'created_at']
