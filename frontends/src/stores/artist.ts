@@ -26,7 +26,7 @@ export const useArtistDetailStore = defineStore("artistDetail", () => {
 });
 
 export const useArtistsListStore = defineStore("artistsList", () => {
-  const artists = ref<[Artist]|undefined>();
+  const artists = ref<Artist[]|undefined>();
   const error = ref<ApiError|undefined>();
 
   function init() {
@@ -44,7 +44,7 @@ export const useArtistsListStore = defineStore("artistsList", () => {
       .catch(err => error.value = axiosApiError(err));
   }
 
-  function artistsByCategory(category_slug: String) {
+  function artistsByCategory(category_slug: String): Artist[] {
     return _uniqBy(Array().concat(
       _filter(artists.value, {categories: [{slug: category_slug}]}),
       _filter(artists.value, {categories: [{parent: {slug: category_slug}}]})

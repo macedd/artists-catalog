@@ -4,7 +4,7 @@ import type { ApiError } from './types';
 export function axiosApiError(error: AxiosError): ApiError {
   return {
     message: error.message,
-    code: error.code as String,
+    code: error.code as string,
     status: error.response?.status as Number,
     data: error.response?.data as Object
   };

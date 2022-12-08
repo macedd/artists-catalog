@@ -7,7 +7,7 @@ import { axiosApiError, apiUrl } from './helpers';
 import type { ArtistCategory, ApiError } from './types';
 
 export const useCategoryListStore = defineStore("categoryList", () => {
-  const categories = ref<[ArtistCategory]|undefined>();
+  const categories = ref<ArtistCategory[]|undefined>();
   const error = ref<ApiError|undefined>();
 
   function init() {
@@ -21,8 +21,8 @@ export const useCategoryListStore = defineStore("categoryList", () => {
       .catch(err => error.value = axiosApiError(err));
   }
 
-  function categoriesRoot() {
-    return _filter(categories.value, {parent: null})
+  function categoriesRoot(): ArtistCategory[]|[] {
+    return _filter(categories.value, {parent: null}) as ArtistCategory[]
   }
 
   return { categories, error, load, categoriesRoot };

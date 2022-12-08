@@ -18,7 +18,7 @@ const store = useArtistsListStore();
 const artists = store.artistsByCategory(props.category.slug)
 
 // Carousel configuration
-const carousel = ref(null)
+const carousel = ref<typeof Carousel|null>(null)
 let itemsToShow = 3;
 
 // Responsive breakpoints
@@ -65,13 +65,13 @@ if (breakpoints.isGreater('md')) {
 
       <!-- navigation -->
       <template #addons="{ slidesCount, currentSlide }">
-        <div @click="carousel.next"
+        <div @click="carousel?.next"
           class="p-4 cursor-pointer absolute top-1/2 -right-4 md:-right-8 -translate-y-1/2"
           v-if="currentSlide < (slidesCount - itemsToShow)">
           <img class="w-10 md:w-14"
             src="@/assets/images/carousel-arrow.png" alt="arrow-right" />
         </div>
-        <div @click="carousel.prev"
+        <div @click="carousel?.prev"
           class="p-4 cursor-pointer absolute top-1/2 -left-4 md:-left-8 -translate-y-1/2 rotate-180"
           v-if="currentSlide > 0">
           <img class="w-10 md:w-14"

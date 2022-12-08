@@ -1,8 +1,12 @@
 
+export interface ParentCategory {
+  slug: string,
+}
+
 export interface ArtistCategory {
-  title: String,
-  slug: String,
-  // parent:
+  title: string,
+  slug: string,
+  parent: ParentCategory,
 }
 
 enum ArtistPortfolioType {
@@ -14,29 +18,31 @@ enum ArtistPortfolioType {
 
 export interface ArtistPortfolio {
   id: Number,
-  title: String,
+  title: string,
   upload_type: ArtistPortfolioType,
-  link: String|null,
-  upload: String|null,
+  link: string|null,
+  upload: string|null,
 }
 
 export interface Artist {
-  name: String,
-  slug: String,
-  photo: String|null,
+  name: string,
+  slug: string,
+  title: string,
+  photo: string|null,
+  photo_thumbnail: string|null,
   categories: ArtistCategory[]|null,
   related: Artist[]|null,
   featured: Boolean,
-  biography: String,
+  biography: string,
   birth_date: Date|null,
-  birth_city: String|null,
-  artistic_kinship: String|null,
-  groups_affiliation: String|null,
-  works: String|null,
-  website: String|null,
-  instagram: String|null,
-  facebook: String|null,
-  whatsapp: String|null,
+  birth_city: string|null,
+  artistic_kinship: string|null,
+  groups_affiliation: string|null,
+  works: string|null,
+  website: string|null,
+  instagram: string|null,
+  facebook: string|null,
+  whatsapp: string|null,
   portfolio: ArtistPortfolio[],
 }
 
@@ -44,12 +50,13 @@ export interface Article {
   title: string,
   slug: string,
   image: string,
+  image_thumbnail: string,
   created_at: Date,
 }
 
 export interface ApiError {
-  message: String,
-  code: String,
+  message: string,
+  code: string,
   status: Number,
   data: Object,
 }
