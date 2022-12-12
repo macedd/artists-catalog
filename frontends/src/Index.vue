@@ -7,12 +7,18 @@ import Footer from './components/layout/Footer.vue'
 
 <template>
 <div>
+  <!-- Layout Header -->
   <Header />
   <div class="container mx-auto my-4 md:my-8">
     <Suspense>
-      <RouterView />
+      <RouterView v-slot="{ Component }">
+        <keep-alive include="HomeView,">
+          <component :is="Component" :key="$route.fullPath"></component>
+        </keep-alive>
+      </RouterView>
     </Suspense>
   </div>
+  <!-- Layout Footer -->
   <Footer />
 </div>
 </template>
