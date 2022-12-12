@@ -15,9 +15,9 @@ defineProps<{
         <div class="inline-block w-1/2 md:block md:w-[100%]">
           <div>
             <img
-              :src="artist.photo"
+              :src="artist.photo_thumbnail"
               :alt="artist.name"
-              v-if="artist.photo"
+              v-if="artist.photo_thumbnail"
               class="rounded-full border-[6px] border-[rgba(199,64,5,0.85)] drop-shadow-[-3.5px_3.5px_0px_#02090B] md:border-[10px] md:drop-shadow-[-5.54px_5.5px_0px_#02090B]"
             />
             <img
@@ -40,7 +40,10 @@ defineProps<{
                   NASCIMENTO - CIDADE
                 </dt>
                 <dd class="text-xs font-medium text-gray-600 md:text-sm">
-                  {{ artist.birth_date }} - {{ artist.birth_city }}
+                  <span v-if="artist.birth_date">
+                    {{ artist.birth_date.toLocaleDateString('pt-BR') }} - 
+                  </span>
+                  {{ artist.birth_city }}
                 </dd>
               </dl>
               <!-- Start Kinship -->
@@ -49,8 +52,10 @@ defineProps<{
                 <dt class="text-base font-medium md:text-lg">
                   PARENTESCO ARTISTICO
                 </dt>
-                <dd class="text-xs font-medium text-gray-600 md:text-sm">
-                  {{ artist.artistic_kinship }}
+                <dd class="text-xs font-medium text-gray-600 md:text-sm"
+                  v-for='(item, i) in artist.artistic_kinship.split("\n")'
+                  :key="i">
+                  {{ item }}
                 </dd>
               </dl>
             </div>
@@ -61,12 +66,11 @@ defineProps<{
                 <dt class="text-base font-medium md:text-lg">
                   GRUPOS/FILIACOES
                 </dt>
-                <dd class="text-xs font-medium text-gray-600 md:text-sm">
-                  {{ artist.groups_affiliation }}
+                <dd class="text-xs font-medium text-gray-600 md:text-sm"
+                  v-for='(item, i) in artist.groups_affiliation.split("\n")'
+                  :key="i">
+                  {{ item }}
                 </dd>
-                <!-- TODO: loop each line inside dd -->
-                <!-- <dd class="text-xs font-medium text-gray-600 md:text-sm">ALAMI</dd>
-                <dd class="text-xs font-medium text-gray-600 md:text-sm">UFG</dd> -->
               </dl>
               <!-- Start Works -->
               <dl class="mb-4"
@@ -74,8 +78,10 @@ defineProps<{
                 <dt class="text-base font-medium md:text-lg">
                   OBRAS
                 </dt>
-                <dd class="text-xs font-medium text-gray-600 md:text-sm">
-                  {{ artist.works }}
+                <dd class="text-xs font-medium text-gray-600 md:text-sm"
+                  v-for='(item, i) in artist.works.split("\n")'
+                  :key="i">
+                  {{ item }}
                 </dd>
               </dl>
             </div>
