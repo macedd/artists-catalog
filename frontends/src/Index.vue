@@ -13,7 +13,10 @@ import Footer from './components/layout/Footer.vue'
     <Suspense>
       <RouterView v-slot="{ Component }">
         <keep-alive include="HomeView,">
-          <component :is="Component" :key="$route.fullPath"></component>
+          <component
+            :is="Component"
+            :key="$route.fullPath">
+          </component>
         </keep-alive>
       </RouterView>
     </Suspense>

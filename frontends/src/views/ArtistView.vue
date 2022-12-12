@@ -4,7 +4,7 @@ import { useRoute } from "vue-router";
 
 import { useArtistDetailStore } from '../stores/artist';
 import PageNotFoundView from './PageNotFound.vue';
-import ArtistDetail from '../components/ArtistDetail.vue';
+import ArtistContent from '../components/artists/ArtistContent.vue';
 
 // const props = defineProps({
 //   foo: { type: String, required: true },
@@ -23,7 +23,7 @@ await store.load(artist_slug);
   <main>
     <PageNotFoundView
       v-if="!!store.error?.code || !store.artist" />
-    <ArtistDetail v-else
+    <ArtistContent v-else
       :artist="store.artist" />
   </main>
 </template>

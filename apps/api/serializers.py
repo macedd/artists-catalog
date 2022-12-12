@@ -34,10 +34,14 @@ class ArtistSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
     related = ArtistListSerializer(many=True)
     portfolio = PortfolioSerializer(many=True, read_only=True)
+    photo_thumbnail = serializers.SerializerMethodField()
+
+    def get_photo_thumbnail(self, obj: Artist):
+        return obj.get_image_thumbnail('photo', '600x600')
 
     class Meta:
         model = Artist
-        fields = ['name', 'slug', 'title', 'photo',
+        fields = ['name', 'slug', 'title', 'photo', 'photo_thumbnail',
                   'categories', 'related', 'biography', 'birth_date',
                   'birth_city', 'artistic_kinship', 'groups_affiliation', 'works',
                   'website', 'instagram', 'facebook', 'whatsapp', 'portfolio']
