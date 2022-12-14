@@ -51,6 +51,7 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
     )
     birth_date = models.DateField(
         blank=True,
+        null=True,
         verbose_name=_('Birth date')
     )
     birth_city = models.CharField(
