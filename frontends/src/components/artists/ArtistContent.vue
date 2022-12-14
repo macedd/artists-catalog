@@ -36,10 +36,10 @@ defineProps<{
             <div>
               <!-- Start Birth -->
               <dl class="mb-4 mt-2">
-                <dt class="text-base font-medium md:text-lg">
+                <dt class="font-medium text-lg">
                   NASCIMENTO - CIDADE
                 </dt>
-                <dd class="text-xs font-medium text-gray-600 md:text-sm">
+                <dd class="font-medium text-base text-gray-600">
                   <span v-if="artist.birth_date">
                     {{ artist.birth_date.toLocaleDateString('pt-BR') }} - 
                   </span>
@@ -49,10 +49,10 @@ defineProps<{
               <!-- Start Kinship -->
               <dl class="mb-4"
                 v-if="artist.artistic_kinship">
-                <dt class="text-base font-medium md:text-lg">
+                <dt class="font-medium text-lg">
                   PARENTESCO ARTISTICO
                 </dt>
-                <dd class="text-xs font-medium text-gray-600 md:text-sm"
+                <dd class="font-medium text-base text-gray-600"
                   v-for='(item, i) in artist.artistic_kinship.split("\n")'
                   :key="i">
                   {{ item }}
@@ -63,10 +63,10 @@ defineProps<{
               <!-- Start Affiliations -->
               <dl class="mb-4"
                 v-if="artist.groups_affiliation">
-                <dt class="text-base font-medium md:text-lg">
+                <dt class="font-medium text-lg">
                   GRUPOS/FILIACOES
                 </dt>
-                <dd class="text-xs font-medium text-gray-600 md:text-sm"
+                <dd class="font-medium text-base text-gray-600"
                   v-for='(item, i) in artist.groups_affiliation.split("\n")'
                   :key="i">
                   {{ item }}
@@ -75,10 +75,10 @@ defineProps<{
               <!-- Start Works -->
               <dl class="mb-4"
                 v-if="artist.works">
-                <dt class="text-base font-medium md:text-lg">
+                <dt class="font-medium text-lg">
                   OBRAS
                 </dt>
-                <dd class="text-xs font-medium text-gray-600 md:text-sm"
+                <dd class="font-medium text-base text-gray-600"
                   v-for='(item, i) in artist.works.split("\n")'
                   :key="i">
                   {{ item }}
@@ -88,10 +88,10 @@ defineProps<{
             <div>
               <!-- Start Contact -->
               <dl class="mb-4">
-                <dt class="text-base font-medium md:text-lg">
+                <dt class="font-medium text-lg">
                   CONTATO
                 </dt>
-                <dd class="text-xs font-medium text-gray-600 md:text-sm">
+                <dd class="font-medium text-base text-gray-600">
                   {{ artist.website }}
                 </dd>
               </dl>
@@ -140,18 +140,18 @@ defineProps<{
       <div class="ml-4 w-11/12 md:pr-[20px]">
         <div class="md:mt-8">
           <!-- Artist Name -->
-          <p class="mb-2 text-xl font-bold uppercase text-[#C74005] md:text-3xl">
+          <h1 class="mb-2 font-bold uppercase text-[#C74005] text-3xl">
             {{ artist.name }}
-          </p>
+          </h1>
           <!-- Artist Biography -->
-          <p class="text-sm font-bold uppercase md:text-xl">
+          <p class="text-base whitespace-pre-line">
             {{ artist.biography }}
           </p>
         </div>
 
         <!-- Categories -->
         <ul class="my-4 flex flex-wrap">
-          <li class="mr-4 text-sm font-bold uppercase md:text-lg"
+          <li class="mr-4 font-bold lowercase"
             v-for="category in artist.categories"
             :key="category.slug">
             #{{ category.slug }}
