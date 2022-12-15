@@ -1,21 +1,35 @@
 <script setup lang="ts">
 import { onMounted } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
+import { useHead } from '@vueuse/head'
 
 import { useArtistDetailStore } from '../stores/artist';
 import PageNotFoundView from './PageNotFound.vue';
 import ArtistContent from '../components/artists/ArtistContent.vue';
-
-// const props = defineProps({
-//   foo: { type: String, required: true },
-//   bar: Number
-// })
 
 const route = useRoute();
 let artist_slug: string = route.params.artist as string;
 
 const store = useArtistDetailStore();
 await store.load(artist_slug);
+
+const artist = store.artist
+
+useHead({
+  title: `${artist.name} - ArtejucanA`,
+  meta: [
+    {
+      name: 'description',
+      content: `${artist.name}, ${artist.title}, natural de ${artist.birth_city}.`,
+    },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://artejucana.com.br/a/${artist.slug}/`
+    }
+  ]
+})
 
 </script>
 
