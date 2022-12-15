@@ -92,6 +92,11 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
         blank=True,
         verbose_name=_('Whatsapp')
     )
+    youtube = models.CharField(
+        max_length=60,
+        blank=True,
+        verbose_name=_('Youtube')
+    )
 
     def save(self, *args, **kwargs):
         self.save_slug()
