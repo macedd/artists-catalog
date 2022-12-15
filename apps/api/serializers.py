@@ -40,8 +40,8 @@ class ArtistSerializer(serializers.ModelSerializer):
     website = SocialMediaField('http://')
     instagram = SocialMediaField('https://www.instagram.com/')
     facebook = SocialMediaField('https://www.facebook.com/')
-    whatsapp = SocialMediaField('https://wa.me/', replaces=[['(\s|-)', '']])
-    youtube = SocialMediaField('https://www.youtube.com/')
+    whatsapp = SocialMediaField('https://wa.me/', prefix='55', replaces=[['[\s\-\(\)]', '']])
+    youtube = SocialMediaField('https://www.youtube.com/', prefix='@')
 
     def get_photo_thumbnail(self, obj: Artist):
         return obj.get_image_thumbnail('photo', '600x600')
