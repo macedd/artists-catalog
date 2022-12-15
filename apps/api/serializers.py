@@ -38,7 +38,7 @@ class ArtistSerializer(serializers.ModelSerializer):
     photo_thumbnail = serializers.SerializerMethodField()
     
     website = SocialMediaField('http://')
-    instagram = SocialMediaField('https://www.instagram.com/')
+    instagram = SocialMediaField('https://www.instagram.com/', replaces=[['[@]', '']])
     facebook = SocialMediaField('https://www.facebook.com/')
     whatsapp = SocialMediaField('https://wa.me/', prefix='55', replaces=[['[\s\-\(\)]', '']])
     youtube = SocialMediaField('https://www.youtube.com/', prefix='@')

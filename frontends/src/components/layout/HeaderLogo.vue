@@ -6,7 +6,9 @@
   <div class="container mx-auto my-4 md:my-6 flex flex-col md:flex-row items-center justify-between">
     <!-- Logo -->
     <div class="mx-auto md:mx-0">
-      <img class="w-64" src="@/assets/images/logo-1.png" alt="logo" />
+      <router-link :to="{ name: 'home' }">
+        <img class="w-64" src="@/assets/images/logo-1.png" alt="logo" />
+      </router-link>
     </div>
     <!-- Search box -->
     <!-- <div class="flex flex-col mt-4 md:mt-0">
