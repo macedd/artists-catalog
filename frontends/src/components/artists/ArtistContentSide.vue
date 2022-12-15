@@ -94,7 +94,10 @@ function hasContact(): Boolean {
                   Contato
                 </dt>
                 <dd class="text-base text-gray-600">
-                  {{ artist.website }}
+                  <a :href="artist.website"
+                    target="_blank">
+                    {{ artist.website.replace(/https?:\/\//, '') }}
+                  </a>
                 </dd>
               </dl>
               <div class="flex">
