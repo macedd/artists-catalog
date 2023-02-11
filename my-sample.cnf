@@ -1,0 +1,6 @@
+[client]
+host = "db"
+database = "artejucana"
+user = "root"
+password = ""
+default-character-set = "utf8"

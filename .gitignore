@@ -6,4 +6,5 @@ docker-compose.override.yml
 todo.md
 
 /my*.cnf
+!/my-sample.cnf
 /static/

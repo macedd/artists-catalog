@@ -6,6 +6,7 @@ Start
 
 First run
 
+    docker-compose exec db mysql -e "create database catalog"
     docker-compose exec web python manage.py migrate
     docker-compose exec web python manage.py createsuperuser
 
