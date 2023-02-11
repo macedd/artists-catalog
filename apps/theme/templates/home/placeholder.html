@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta %}
+<title>
+  ArtejucanA - Unidos pela Cultura de Ituiutaba!
+</title>
+<meta name="description" content="" />
+<link rel="stylesheet" href="{% static 'theme/tailwind.css' %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 h-screen">
+  <img
+    class="h-full mx-auto"
+    src="{% static 'theme/logo-home.png' %}"
+    alt="Artejucana">
+</div>
+{% endblock %}

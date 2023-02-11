@@ -31,11 +31,13 @@ DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['artejucana.budi.tech', 'artejucana.com.br', 'localhost']
 CSRF_TRUSTED_ORIGINS = ['https://artejucana.budi.tech', 'https://artejucana.com.br']
+CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:5173']
 
 # Application definition
 
 INSTALLED_APPS = [
     'artists.apps.ArtistsConfig',
+    'news.apps.NewsConfig',
     'theme.apps.ThemeConfig',
 
     'django.contrib.admin',
@@ -48,13 +50,18 @@ INSTALLED_APPS = [
     'static_precompiler',
     'storages',
     'django_browser_reload',
+    'django_extensions',
 
     'rest_framework',
+    'corsheaders',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -80,6 +87,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'vite': 'theme.templatetags.vite',
+            },
         },
     },
 ]
@@ -100,6 +110,15 @@ DATABASES = {
     }
 }
 
+# Cache
+# https://docs.djangoproject.com/en/dev/topics/cache/
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'django_cache',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -137,6 +156,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = '/code/static'
+STATICFILES_DIRS = [
+    BASE_DIR / "frontends/dist",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -156,3 +178,47 @@ AWS_QUERYSTRING_AUTH = False
 AWS_DEFAULT_ACL = 'public-read'
 AWS_LOCATION = os.environ.get('AWS_LOCATION', '')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Logging
+# https://docs.djangoproject.com/en/4.1/topics/logging/
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        # 'file': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.FileHandler',
+        #     'filename': '/var/log/django/debug.log',
+        # },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'django.db': {
+            # 'level': 'DEBUG',
+        }
+    },
+}
+if not DEBUG:
+    LOGGING['loggers'].pop('django.db')
+
+# Rest Framework
+#
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': tuple(filter(None, (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer' if DEBUG else None,
+    )))
+}

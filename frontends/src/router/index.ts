@@ -1,14 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
+import PageNotFound from "../views/PageNotFound.vue";
 import HomeView from "../views/HomeView.vue";
 import HomePlaceholder from '../views/HomePlaceholder.vue';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory('/'),
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "placeholder",
       component: HomePlaceholder,
+    },
+    {
+      path: "/home",
+      name: "home",
+      component: HomeView,
     },
     {
       path: "/a/:artist",
@@ -23,6 +29,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/AboutView.vue"),
     },
+    { path: "/:pathMatch(.*)*", component: PageNotFound }
   ],
 });
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-29 23:33+0000\n"
+"POT-Creation-Date: 2022-11-05 16:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: backend/admin.py:7
+#: apps/theme/admin.py:6
 msgid "Artists admin"
 msgstr "Administração"
 
-#: backend/admin.py:8
+#: apps/theme/admin.py:7
 msgid "Artists administration"
 msgstr "Administração dos Artistas"
 
-#: backend/admin.py:9
+#: apps/theme/admin.py:8
 msgid "Site administration"
 msgstr "Administração"
+
+#: apps/theme/apps.py:8
+msgid "Artists Catalog Theme"
+msgstr ""

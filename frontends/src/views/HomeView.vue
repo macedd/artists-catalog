@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import TheWelcome from "../components/TheWelcome.vue";
+import HomeArticles from "../components/home/HomeArticles.vue";
+import HomeCategories from "../components/home/HomeCategories.vue";
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <HomeArticles />
+    <HomeCategories />
   </main>
 </template>

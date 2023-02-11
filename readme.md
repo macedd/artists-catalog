@@ -1,6 +1,7 @@
 
 Start
 
+    cd deployments
     docker-compose build
     docker-compose up -d
 
@@ -12,6 +13,7 @@ First run
 
 Development
 
+    # make sources available to ide
     python3 -m venv .venv
     source .venv/bin/activate
     pip install -r requirements.txt
@@ -22,6 +24,18 @@ Development
 Translations
 
     # create/update languages
-    django-admin makemessages -l pt_br
+    django-admin makemessages -l pt_BR
     # compile languages
     django-admin compilemessages
+
+Frontends
+
+    cd frontends
+    npm install
+    npm run dev
+
+Debug Django
+
+    docker ps
+    docker attach $containerID
+    # quit with ctrl+p ctrl+q

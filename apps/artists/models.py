@@ -1,30 +1,25 @@
 from django.db import models
-from django.template.defaultfilters import slugify
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from .fields import PortfolioUploadField
+from apps.library.models import SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase
 
 # Create your models here.
 
-def artist_directory_path(portfolio, filename):
+def artist_directory_path(instance: models.Model, filename: str):
+    # intance can be artist or portfolio
+    slug = instance.artist.slug_original if hasattr(instance, 'artist') else instance.slug_original
     # file will be uploaded to MEDIA_ROOT/<slug>/<filename>
-    return 'artists/{0}/{1}'.format(portfolio.artist.original_slug, filename)
+    return 'artists/{0}/{1}'.format(slug, filename)
 
-class Artist(models.Model):
+class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
+    _slug_from = 'name'
+
     name = models.CharField(
         max_length=120,
         verbose_name=_('Name')
-    )
-    slug = models.SlugField(
-        max_length=120,
-        unique=True,
-        verbose_name=_('Slug')
-    )
-    past_slugs = models.JSONField(
-        default=list,
-        verbose_name=_('Past Slugs')
     )
     title = models.CharField(
         max_length=60,
@@ -35,6 +30,7 @@ class Artist(models.Model):
         blank=True,
         verbose_name=_('Photo')
     )
+
     categories = models.ManyToManyField(
         'Category',
         blank=True,
@@ -54,6 +50,7 @@ class Artist(models.Model):
         verbose_name=_('Biography')
     )
     birth_date = models.DateField(
+        blank=True,
         verbose_name=_('Birth date')
     )
     birth_city = models.CharField(
@@ -95,33 +92,8 @@ class Artist(models.Model):
         verbose_name=_('Whatsapp')
     )
 
-    views = models.IntegerField(
-        default=0,
-        editable=False,
-        verbose_name=_('Views')
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_('Created at')
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_('Updated at')
-    )
-
-    def views_increment(self):
-      Artist.objects.filter(id=self.id).update(views=models.F('views') + 1)
-
-    @property
-    def original_slug(self):
-        return self.past_slugs[0]
-
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        # new slug
-        if self.slug not in self.past_slugs:
-            # todo: make past_slug to be unique (check slug existed in any other artist)
-            self.past_slugs.append(slugify(self.title))
+        self.save_slug()
         super(Artist, self).save(*args, **kwargs)
 
     class Meta:
@@ -131,14 +103,12 @@ class Artist(models.Model):
     def __str__(self):
         return self.name
 
-class Category(models.Model):
+class Category(SlugsBase, TimestampsBase):
+    _slug_from = 'title'
+
     title  = models.CharField(
         max_length=60,
         verbose_name=_('Title')
-    )
-    slug   = models.SlugField(
-        max_length=60,
-        verbose_name=_('Slug')
     )
     parent = models.ForeignKey(
         'self',
@@ -147,13 +117,9 @@ class Category(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_('Parent category')
     )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_('Created at')
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_('Updated at')
+    featured = models.BooleanField(
+        default=False,
+        verbose_name=_('Featured')
     )
 
     class Meta:
@@ -162,13 +128,13 @@ class Category(models.Model):
         unique_together = ('slug', 'parent',)    
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.save_slug()
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
-class Portfolio(models.Model):
+class Portfolio(TimestampsBase):
     artist = models.ForeignKey(
         Artist,
         related_name='portfolio', 
@@ -177,6 +143,7 @@ class Portfolio(models.Model):
     )
     title = models.CharField(
         max_length=120,
+        blank=True,
         verbose_name=_('Title')
     )
 
@@ -207,14 +174,6 @@ class Portfolio(models.Model):
         default=0,
         editable=False,
         verbose_name=_('Views')
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_('Created at')
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_('Updated at')
     )
 
     def clean(self):

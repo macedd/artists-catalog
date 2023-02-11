@@ -1,11 +1,13 @@
 from django.http import Http404
+from django.db.models import Q
 
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import generics
 
 from artists.models import Artist, Category
-from .serializers import ArtistSerializer, ArtistListSerializer, CategorySerializer
+from news.models import Article
+from .serializers import ArtistSerializer, ArtistListSerializer, CategorySerializer, ArticleSerializer
 from .helpers import MultiSerializerReadOnlyViewSet
 
 class ArtistViewSet(MultiSerializerReadOnlyViewSet):
@@ -14,10 +16,23 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         'list': ArtistListSerializer,
         'retrieve': ArtistSerializer,
     }
-    queryset = Artist.objects.all().order_by('-created_at')
     lookup_field = 'slug'
 
+    def get_queryset(self):
+        """
+        Optionally restricts the returned artists to a given category,
+        """
+        queryset = Artist.objects.order_by('-featured', '-views', 'created_at')
+        category = self.request.query_params.get('category')
+        if category is not None:
+            queryset = queryset.filter(Q(categories__slug=category) | Q(categories__parent__slug=category))
+        queryset = queryset.prefetch_related('categories', 'categories__parent')
+        return queryset
+
     def get_object(self):
+        """
+        Lookup slug and past_slugs for a given object.
+        """
         queryset = self.filter_queryset(self.get_queryset())
 
         try:
@@ -28,9 +43,23 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         # May raise a permission denied
         self.check_object_permissions(self.request, obj)
 
+        # artist view count
+        obj.views_increment()
+
         return obj
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Category.objects.all().order_by('parent')
     serializer_class = CategorySerializer
+    lookup_field = 'slug'
+
+    def get_queryset(self):
+        return (Category.objects
+            .prefetch_related('parent')
+            .order_by('-featured', 'created_at'))
+
+class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        return Article.objects.filter(featured=True).order_by('-created_at')
 

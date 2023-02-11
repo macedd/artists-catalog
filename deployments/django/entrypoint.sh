@@ -12,18 +12,20 @@ if [[ $COMMAND = "dev" ]]; then
 
 elif [[ $COMMAND = "build" ]]; then
 
-    cd apps/theme/static_src
-    npx tailwindcss -i ./tailwind.css -o ../static/theme/tailwind.css --minify
+    cd frontends
+    source /usr/local/nvm/nvm.sh
+    nvm use 16
+    npm install
+    npm run build-only
 
 elif [[ $COMMAND = "prod" ]]; then
 
     export GUNICORN_CMD_ARGS="--bind=0.0.0.0:8000 --workers=3 --name=artists-catalog"
-    gunicorn config.wsgi
+    gunicorn --capture-output config.wsgi
 
 elif [[ $COMMAND = "reload" ]]; then
 
-    kill -HUP `pgrep --ns 1 ^python`
-    kill -HUP `pgrep --ns 1 ^gunicorn`
+    kill -HUP `pgrep --ns 1 "^(gunicorn|python)"`
 
 else
     echo "$COMMAND command not implemented"

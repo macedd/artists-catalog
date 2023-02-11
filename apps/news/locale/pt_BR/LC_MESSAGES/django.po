@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-05 16:58+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: apps/news/admin.py:9
+msgid "Article information"
+msgstr "Informações do artigo"
+
+#: apps/news/admin.py:10
+msgid "Homepage Featured"
+msgstr "Destaque na página inicial"
+
+#: apps/news/apps.py:8
+msgid "News Aggregator"
+msgstr "Notícias"
+
+#: apps/news/models.py:16
+msgid "Name"
+msgstr "Nome"
+
+#: apps/news/models.py:21
+msgid "Slug"
+msgstr "Slug"
+
+#: apps/news/models.py:25
+msgid "Past Slugs"
+msgstr "Slugs anteriores"
+
+#: apps/news/models.py:31
+msgid "Hyperlink"
+msgstr "Link"
+
+#: apps/news/models.py:36
+msgid "Image"
+msgstr "Foto"
+
+#: apps/news/models.py:40
+msgid "Featured"
+msgstr "Destaque"
+
+#: apps/news/models.py:46
+msgid "Views"
+msgstr "Visualizações"
+
+#: apps/news/models.py:50
+msgid "Created at"
+msgstr "Criado em"
+
+#: apps/news/models.py:54
+msgid "Updated at"
+msgstr "Atualizado em"
+
+#: apps/news/models.py:76
+msgid "Article"
+msgstr "Artigo"
+
+#: apps/news/models.py:77
+msgid "Articles"
+msgstr "Artigos"

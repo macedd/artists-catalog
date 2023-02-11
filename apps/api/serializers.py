@@ -1,11 +1,18 @@
 from rest_framework import serializers
 
 from artists.models import Artist, Category, Portfolio
+from news.models import Article
 
+class ParentCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['slug']
 class CategorySerializer(serializers.ModelSerializer):
+    parent = ParentCategorySerializer()
     class Meta:
         model = Category
         fields = ['title', 'slug', 'parent']
+        # fields = '__all__'
 
 class PortfolioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,9 +20,15 @@ class PortfolioSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'upload_type', 'upload', 'link']
 
 class ArtistListSerializer(serializers.ModelSerializer):
+    categories = CategorySerializer(many=True)
+    photo_thumbnail = serializers.SerializerMethodField()
+
+    def get_photo_thumbnail(self, obj: Artist):
+        return obj.get_image_thumbnail('photo', '400x400')
+    
     class Meta:
         model = Artist
-        fields = ['name', 'slug', 'title', 'photo',]
+        fields = ['name', 'slug', 'title', 'photo_thumbnail', 'categories']
 
 class ArtistSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
@@ -29,3 +42,15 @@ class ArtistSerializer(serializers.ModelSerializer):
                   'birth_city', 'artistic_kinship', 'groups_affiliation', 'works',
                   'website', 'instagram', 'facebook', 'whatsapp', 'portfolio']
 
+class ArticleSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    image_thumbnail = serializers.SerializerMethodField()
+
+    def get_image(self, obj: Article):
+        return obj.get_image_thumbnail('image', '1440')
+    def get_image_thumbnail(self, obj: Article):
+        return obj.get_image_thumbnail('image', '480')
+
+    class Meta:
+        model = Article
+        fields = ['title', 'slug', 'image', 'image_thumbnail', 'created_at']

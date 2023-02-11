@@ -21,7 +21,7 @@ class ArtistAdmin(admin.ModelAdmin):
         (_('Related Artists'), {'fields': ['related']}),
     ]
     inlines = (PortfolioInline,)                                                  
-    list_display = ('title', 'get_categories', 'featured', 'created_at')
+    list_display = ('name', 'get_categories', 'featured', 'created_at')
     list_filter = ['featured', 'categories', 'created_at']
     filter_horizontal = ('categories', 'related')
 
@@ -37,8 +37,10 @@ class ArtistAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['title', 'parent']}),
+        (_('Homepage Featured'), {'fields': ['featured']}),
     ]
-    list_display = ('title', 'parent')
+    list_filter = ['featured']
+    list_display = ('title', 'parent', 'featured')
 
 class PortfolioAdmin(admin.ModelAdmin):
     fieldsets = [
