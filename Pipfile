@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "~=4.0"
+django-static-precompiler = "~=2.1"
+django-storages = "*"
+django-browser-reload = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+django-extensions = "*"
+mysqlclient = "*"
+pillow = "*"
+boto3 = "*"
+sorl-thumbnail = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
