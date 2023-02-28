@@ -15,11 +15,21 @@ export const useArtistDetailStore = defineStore("artistDetail", () => {
     artist.value = undefined;
     error.value = undefined;
   }
+  function set(data: any) {
+    artist.value = {
+      ...data,
+      birth_date: data.birth_date ? new Date(data.birth_date) : null
+    } as Artist
+  }
+  function fail(err: any) {
+    artist.value = undefined
+    error.value = axiosApiError(err)
+  }
   async function load(artist_slug: String) {
     init();
     await axios.get(apiUrl(`/artists/${artist_slug}/`))
-      .then(res => artist.value = res.data as Artist)
-      .catch(err => error.value = axiosApiError(err));
+      .then(res => set(res.data))
+      .catch(err => fail(err));
   }
 
   return { artist, error, load };

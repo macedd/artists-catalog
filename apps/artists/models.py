@@ -51,6 +51,7 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
     )
     birth_date = models.DateField(
         blank=True,
+        null=True,
         verbose_name=_('Birth date')
     )
     birth_city = models.CharField(
@@ -90,6 +91,11 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
         max_length=60,
         blank=True,
         verbose_name=_('Whatsapp')
+    )
+    youtube = models.CharField(
+        max_length=60,
+        blank=True,
+        verbose_name=_('Youtube')
     )
 
     def save(self, *args, **kwargs):

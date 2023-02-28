@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from "@vue/runtime-core";
-import { useRoute } from "vue-router";
-
 import { useArticleListStore } from '../../stores/article';
 import ArticleSlider from '../articles/ArticlesCarousel.vue';
 

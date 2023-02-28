@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from artists.models import Artist, Category, Portfolio
 from news.models import Article
+from library.serializers import SocialMediaField
 
 class ParentCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,13 +35,23 @@ class ArtistSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
     related = ArtistListSerializer(many=True)
     portfolio = PortfolioSerializer(many=True, read_only=True)
+    photo_thumbnail = serializers.SerializerMethodField()
+    
+    website = SocialMediaField('http://')
+    instagram = SocialMediaField('https://www.instagram.com/', replaces=[['[@]', '']])
+    facebook = SocialMediaField('https://www.facebook.com/')
+    whatsapp = SocialMediaField('https://wa.me/', prefix='55', replaces=[['[\s\-\(\)]', '']])
+    youtube = SocialMediaField('https://www.youtube.com/', prefix='@')
+
+    def get_photo_thumbnail(self, obj: Artist):
+        return obj.get_image_thumbnail('photo', '600x600')
 
     class Meta:
         model = Artist
-        fields = ['name', 'slug', 'title', 'photo',
+        fields = ['name', 'slug', 'title', 'photo', 'photo_thumbnail',
                   'categories', 'related', 'biography', 'birth_date',
                   'birth_city', 'artistic_kinship', 'groups_affiliation', 'works',
-                  'website', 'instagram', 'facebook', 'whatsapp', 'portfolio']
+                  'website', 'instagram', 'facebook', 'whatsapp', 'youtube', 'portfolio']
 
 class ArticleSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()

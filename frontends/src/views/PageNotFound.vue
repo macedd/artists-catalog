@@ -10,10 +10,10 @@
             Desculpe, Não podemos encontrar o que você está buscando!</span>
         </div>
       </center>
-      <center class="mt-6">
+      <!-- <center class="mt-6">
         <a href="{{url()->previous()}}" class="text-gray-500 font-mono text-xl bg-gray-200 p-3 rounded-md hover:shadow-md">
           Voltar</a>
-      </center>
+      </center> -->
     </div>
   </div>
 </template>
