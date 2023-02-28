@@ -46,13 +46,13 @@ if (breakpoints.isGreater('md')) {
       <Slide v-for="(artist, index) in artists" :key="artist.slug"
         style="align-items: flex-start;"
         >
-        <router-link to="#"
+        <router-link :to="`/a/${artist.slug}/`"
           class="mx-3 mt-3 text-center">
-          <img alt="pic"
+          <img :alt="artist.name"
             class="aspect-square object-cover"
             :src="artist.photo_thumbnail"
             v-if="artist.photo_thumbnail" />
-          <img alt="pic"
+          <img alt="Artejucana"
             class="aspect-square object-contain"
             v-else
             src="@/assets/images/logo-1.png" />

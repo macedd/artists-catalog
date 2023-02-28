@@ -43,6 +43,7 @@ export interface Artist {
   instagram: string|null,
   facebook: string|null,
   whatsapp: string|null,
+  youtube: string|null,
   portfolio: ArtistPortfolio[],
 }
 

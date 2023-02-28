@@ -17,7 +17,7 @@ class ArtistAdmin(admin.ModelAdmin):
         (_('Categories'), {'fields': ['categories']}),
         (_('Homepage Featured'), {'fields': ['featured']}),
         (_('Extended information'), {'fields': ['biography', 'birth_date', 'birth_city', 'artistic_kinship', 'groups_affiliation', 'works']}),
-        (_('Contact information'), {'fields': ['website', 'instagram', 'facebook', 'whatsapp']}),
+        (_('Contact information'), {'fields': ['website', 'instagram', 'facebook', 'youtube', 'whatsapp']}),
         (_('Related Artists'), {'fields': ['related']}),
     ]
     inlines = (PortfolioInline,)                                                  
