@@ -3,7 +3,7 @@ version: "3.9"
 services:
   web:
     ports:
-      - 8002:8000
+      - 8002:8002
     command: dev
     depends_on:
       db:

@@ -16,7 +16,7 @@ if [[ $COMMAND = "dev" ]]; then
 
     cd -
     pipenv run \
-        python manage.py runserver 0.0.0.0:8000
+        python manage.py runserver 0.0.0.0:8002
 
 elif [[ $COMMAND = "build" ]]; then
 
@@ -50,6 +50,12 @@ elif [[ $COMMAND = "install" ]]; then
     # javasript frontend
     cd frontends
     npm install
+
+elif [[ $COMMAND = "frontend" ]]; then
+
+    cd frontends
+    npm install
+    npm run dev
 
 else
     echo "$COMMAND command not implemented"

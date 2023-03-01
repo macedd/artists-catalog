@@ -33,7 +33,9 @@ Translations
     # compile languages
     django-admin compilemessages
 
-Frontends
+Frontends only
+
+    docker-compose run -p 5173:5173 web frontend
 
     cd frontends
     npm install
