@@ -22,12 +22,12 @@ then
         export TMPDIR=$TMP_FOLDER TMP=$TMP_FOLDER TEMP=$TMP_FOLDER; \
         mkdir -p \$TMP && \
         docker-compose build && \
+        docker-compose run -T web install && \
         docker-compose up -d && \
         docker system prune -f && \
-        docker-compose exec -T web python manage.py migrate --noinput && \
-        docker-compose exec -T web deployments/django/entrypoint.sh build && \
-        docker-compose exec -T web python manage.py collectstatic --noinput && \
-        docker-compose exec web entrypoint.sh reload && \
+        docker-compose exec -T web entrypoint.sh migrate && \
+        docker-compose exec -T web entrypoint.sh build && \
+        docker-compose exec -T web entrypoint.sh reload && \
         docker-compose logs | tail -n 14"
 
 else

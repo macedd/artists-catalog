@@ -21,6 +21,7 @@ services:
     entrypoint: /code/deployments/django/entrypoint.sh
     volumes:
       - ../:/code
+      - ./data/home:/home/django
     environment:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY

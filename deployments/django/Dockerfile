@@ -7,13 +7,14 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /code/
 
 RUN apt-get update && \
-  apt-get install -y gettext npm
+  apt-get install -y \
+            gettext \
+            npm
 
 RUN npm -g install less
-RUN python -m pip install gunicorn
-
-COPY ./requirements.txt /tmp/
-RUN pip install -r /tmp/requirements.txt
+RUN python -m pip install \
+                  gunicorn \
+                  pipenv
 
 ENV NVM_DIR /usr/local/nvm
 RUN mkdir $NVM_DIR && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash

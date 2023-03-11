@@ -3,23 +3,28 @@ Start
 
     cd deployments
     docker-compose build
+    docker-compose run web install
+    docker-compose run web migrate
+    docker-compose run web build
     docker-compose up -d
 
 First run
 
+    ln -s `pwd`/deployments/docker-compose-local.yml deployments/docker-compose.override.yml
     docker-compose exec db mysql -e "create database catalog"
-    docker-compose exec web python manage.py migrate
-    docker-compose exec web python manage.py createsuperuser
+    docker-compose exec web pipenv run python manage.py createsuperuser
+
+App bootstrap
+
+    docker-compose exec web entrypoint.sh install
+    docker-compose exec web entrypoint.sh migrate
+    docker-compose exec web entrypoint.sh build
 
 Development
 
-    # make sources available to ide
-    python3 -m venv .venv
-    source .venv/bin/activate
-    pip install -r requirements.txt
-
     # make app migrations
-    docker-compose exec web python manage.py makemigrations artists
+    docker-compose exec web \
+        pipenv run python manage.py makemigrations artists
 
 Translations
 
@@ -28,7 +33,9 @@ Translations
     # compile languages
     django-admin compilemessages
 
-Frontends
+Frontends only
+
+    docker-compose run -p 5173:5173 web frontend
 
     cd frontends
     npm install
