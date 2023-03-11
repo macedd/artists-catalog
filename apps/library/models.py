@@ -71,7 +71,10 @@ class ThumbnailsBase(models.Model):
     image = getattr(self, field)
     if not image:
       return None
-    # cache key for thumbnail
+    return self._cached_image_thumbnail(field, image, size, crop)
+
+  def _cached_image_thumbnail(self, field, image, size, crop='center'):
+    # caches thumbnail for fast access
     key = '%s-%s-%s-%s' % (field, size, crop, image)
     if not key in self.images_thumbnails:
       # loads new thumbnail and saves reference

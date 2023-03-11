@@ -140,7 +140,7 @@ class Category(SlugsBase, TimestampsBase):
     def __str__(self):
         return self.title
 
-class Portfolio(TimestampsBase):
+class Portfolio(TimestampsBase, ThumbnailsBase):
     artist = models.ForeignKey(
         Artist,
         related_name='portfolio', 

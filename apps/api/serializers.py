@@ -16,9 +16,26 @@ class CategorySerializer(serializers.ModelSerializer):
         # fields = '__all__'
 
 class PortfolioSerializer(serializers.ModelSerializer):
+    thumbnail = serializers.SerializerMethodField()
+    media = serializers.SerializerMethodField()
+    
     class Meta:
         model = Portfolio
-        fields = ['id', 'title', 'upload_type', 'upload', 'link']
+        fields = ['id', 'title', 'upload_type', 'thumbnail', 'media']
+
+    def get_thumbnail(self, obj: Portfolio):
+        if obj.upload:
+            if obj.upload_type in ['drawing', 'photo']:
+                return obj.get_image_thumbnail('upload', '400x400')
+        if obj.link:
+            if obj.upload_type in ['drawing', 'photo']:
+                return obj.get_image_thumbnail('link', '400x400')
+
+    def get_media(self, obj: Portfolio):
+        if obj.upload.name:
+            return obj.upload.url
+        if obj.link:
+            return obj.link
 
 class ArtistListSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
