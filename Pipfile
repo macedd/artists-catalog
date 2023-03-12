@@ -15,7 +15,7 @@ mysqlclient = "*"
 pillow = "*"
 boto3 = "*"
 sorl-thumbnail = "*"
-gunicorn = {extras = ["eventlet"], version = "~=20.1"}
+gunicorn = {extras = ["gevent"], version = "~=20.1"}
 
 [dev-packages]
 
