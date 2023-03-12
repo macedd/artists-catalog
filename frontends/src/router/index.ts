@@ -20,6 +20,12 @@ const router = createRouter({
       path: "/a/:artist",
       name: "artist",
       component: () => import("../views/ArtistView.vue"),
+      children: [
+        // {
+        //   path: 'p/:portfolio',
+        //   component
+        // }
+      ],
     },
     { path: "/:pathMatch(.*)*", component: PageNotFound }
   ],

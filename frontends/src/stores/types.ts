@@ -9,7 +9,7 @@ export interface ArtistCategory {
   parent: ParentCategory,
 }
 
-enum ArtistPortfolioType {
+export enum ArtistPortfolioType {
   MUSIC = 'music',
   DRAWING = 'drawing',
   PHOTO = 'photo',

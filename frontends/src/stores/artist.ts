@@ -5,7 +5,7 @@ import _filter from 'lodash/filter'
 import _uniqBy from 'lodash/uniqBy'
 
 import { axiosApiError, apiUrl } from './helpers';
-import type { Artist, ApiError } from './types';
+import type { Artist, ArtistPortfolioType, ArtistPortfolio, ApiError } from './types';
 
 export const useArtistDetailStore = defineStore("artistDetail", () => {
   const artist = ref<Artist|undefined>();
@@ -62,4 +62,12 @@ export const useArtistsListStore = defineStore("artistsList", () => {
   }
 
   return { artists, error, load, artistsByCategory };
+});
+
+export const useArtistHelpers = defineStore("artistHelpers", () => {
+  function portfolioByType(artist: Artist, portfolio_type: ArtistPortfolioType): ArtistPortfolio[] {
+    return _filter(artist.portfolio, {upload_type: portfolio_type});
+  }
+
+  return { portfolioByType };
 });

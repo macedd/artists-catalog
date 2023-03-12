@@ -16,10 +16,10 @@ function hasContact(): Boolean {
 
 <template>
   <!-- Artist Detail Side Section Start -->
-  <div class="ml-2 md:ml-10 md:w-2/5">
+  <div class="md:w-2/5">
     <div class="w-11/12 lg:w-3/4">
       <!-- Artist Photo -->
-      <div class="relative z-10 mx-auto w-1/2 md:w-[100%]">
+      <div class="relative z-10 mx-auto w-1/2 md:w-[100%] -mb-40">
         <img
           :src="artist.photo_thumbnail"
           :alt="artist.name"
@@ -34,7 +34,7 @@ function hasContact(): Boolean {
       </div>
       
       <!-- Artist Information -->
-      <div class="relative z-0 bottom-40">
+      <div class="z-0">
         <!-- Rotated Stroke -->
         <div class="-rotate-1 rounded-3xl border-2 border-[rgba(199,64,5,0.85)] p-4 py-2">
           <div class="rotate-1 rounded-3xl bg-[#CFCDCD]">

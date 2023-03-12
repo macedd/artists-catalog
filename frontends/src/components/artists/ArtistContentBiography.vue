@@ -10,7 +10,7 @@ const props = defineProps<{
 <template>
   <!-- Content Detail Right Section Start -->
   <div class="relative bottom-28 md:static md:w-3/5">
-    <div class="ml-4 w-11/12 md:pr-[20px]">
+    <div class="ml-4 w-11/12">
       <div class="md:mt-8">
         <!-- Artist Name -->
         <h1 class="mb-2 font-bold uppercase text-[#C74005] text-3xl">
