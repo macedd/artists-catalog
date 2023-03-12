@@ -13,6 +13,9 @@ First run
     ln -s `pwd`/deployments/docker-compose-local.yml deployments/docker-compose.override.yml
     docker-compose exec db mysql -e "create database catalog"
     docker-compose exec web pipenv run python manage.py createsuperuser
+    docker-compose exec web pipenv run python manage.py createcachetable
+    
+
 
 App bootstrap
 
@@ -35,7 +38,7 @@ Translations
 
 Frontends only
 
-    docker-compose run -p 5173:5173 web frontend
+    docker-compose run --no-deps -p 5173:5173 web frontend
 
     cd frontends
     npm install

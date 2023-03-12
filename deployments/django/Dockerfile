@@ -13,7 +13,6 @@ RUN apt-get update && \
 
 RUN npm -g install less
 RUN python -m pip install \
-                  gunicorn \
                   pipenv
 
 ENV NVM_DIR /usr/local/nvm

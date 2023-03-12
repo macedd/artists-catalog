@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 HOST=${1}
 FOLDER=${2}
@@ -14,8 +14,8 @@ then
     APP_FOLDER="$FOLDER/catalog"
 
     cd $BASEDIR
-    git archive -o ../catalog.zip HEAD
-    scp ../catalog.zip "$HOST":~
+    git archive -o $BASEDIR/../catalog.zip HEAD
+    scp $BASEDIR/../catalog.zip "$HOST":~
     ssh "$HOST" "
         unzip -q -u -o ~/catalog.zip -d $APP_FOLDER && \
         cd $APP_FOLDER/deployments/ && \
