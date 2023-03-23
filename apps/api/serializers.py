@@ -33,9 +33,15 @@ class PortfolioSerializer(serializers.ModelSerializer):
 
     def get_media(self, obj: Portfolio):
         if obj.upload.name:
-            return obj.upload.url
+            if obj.upload_type in ['drawing', 'photo']:
+                return obj.get_image_thumbnail('upload', '1800')
+            else:
+                return obj.upload.url
         if obj.link:
-            return obj.link
+            if obj.upload_type in ['drawing', 'photo']:
+                return obj.get_image_thumbnail('link', '1800')
+            else:
+                return obj.link
 
 class ArtistListSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
