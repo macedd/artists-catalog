@@ -20,8 +20,8 @@ export interface ArtistPortfolio {
   id: Number,
   title: string,
   upload_type: ArtistPortfolioType,
-  link: string|null,
-  upload: string|null,
+  thumbnail: string|null,
+  media: string|null,
 }
 
 export interface Artist {

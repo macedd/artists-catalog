@@ -8,6 +8,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import type { ArtistPortfolio } from '../../stores/types';
 import { ArtistPortfolioType } from '../../stores/types';
 import PortfolioImage from './PortfolioImage.vue';
+import PortfolioGallery from './PortfolioGallery.vue';
 
 // Properties
 const props = defineProps<{
@@ -23,6 +24,12 @@ let itemsToShow = 3;
 const breakpoints = useBreakpoints(breakpointsTailwind)
 if (breakpoints.isGreater('md')) {
   itemsToShow = 5
+}
+
+// Gallery Modal
+const gallery = ref<typeof PortfolioGallery>(null)
+function openGallery(index: number) {
+  gallery.value.openModal(index);
 }
 </script>
 
@@ -43,16 +50,18 @@ if (breakpoints.isGreater('md')) {
       ref="carousel">
       <Slide v-for="(item, index) in portfolio" :key="index"
         style="align-items: flex-start;"
-        >
-        <!-- <router-link :to="`/a/${artist.slug}/`"
-          class="mx-3 mt-3 text-center">
-        </router-link> -->
+        class="cursor-pointer">
+        <!-- <router-link :to="`p/${item.upload_type}/${item.id}`"
+          class="mx-3 mt-3 text-center"> -->
         <PortfolioImage
           v-if="item.upload_type == ArtistPortfolioType.DRAWING"
-          :item="item" />
+          :item="item"
+          @click="openGallery(index)" />
         <PortfolioImage
           v-if="item.upload_type == ArtistPortfolioType.PHOTO"
-          :item="item" />
+          :item="item"
+          @click="openGallery(index)" />
+        <!-- </router-link> -->
       </Slide>
 
       <!-- navigation -->
@@ -71,6 +80,11 @@ if (breakpoints.isGreater('md')) {
         </div>
       </template>
     </Carousel>
+
+    <PortfolioGallery
+      :title="title"
+      :portfolio="portfolio"
+      ref="gallery" />
   </div>
 </template>
 
