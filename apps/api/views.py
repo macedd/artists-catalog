@@ -44,7 +44,7 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         self.check_object_permissions(self.request, obj)
 
         # artist view count
-        obj.views_increment()
+        obj.increment_views()
 
         return obj
 

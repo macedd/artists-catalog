@@ -5,8 +5,6 @@ from django.template.defaultfilters import slugify
 import sorl.thumbnail
 
 class SlugsBase(models.Model):
-  _slug_from = None
-
   slug = models.SlugField(
     max_length=120,
     unique=True,
@@ -21,8 +19,8 @@ class SlugsBase(models.Model):
   def slug_original(self):
     return self.past_slugs[0]
 
-  def save_slug(self):
-    self.slug = slugify(getattr(self, self._slug_from))
+  def make_slug(self, slug_from):
+    self.slug = slugify(getattr(self, slug_from))
     # new slug
     if self.slug not in self.past_slugs:
         # todo: make past_slug to be unique (check slug existed in any other artist)
@@ -52,7 +50,7 @@ class ViewsBase(models.Model):
     verbose_name=_('Views')
   )
 
-  def views_increment(self):
+  def increment_views(self):
     self.__class__.objects.filter(id=self.id).update(views=models.F('views') + 1)
   
   class Meta:
@@ -71,17 +69,21 @@ class ThumbnailsBase(models.Model):
     image = getattr(self, field)
     if not image:
       return None
-    return self._cached_image_thumbnail(field, image, size, crop)
 
-  def _cached_image_thumbnail(self, field, image, size, crop='center'):
     # caches thumbnail for fast access
     key = '%s-%s-%s-%s' % (field, size, crop, image)
     if not key in self.images_thumbnails:
       # loads new thumbnail and saves reference
       self.images_thumbnails[key] = sorl.thumbnail.get_thumbnail(image, size, crop=crop, quality=90).url
       self.save(update_fields=['images_thumbnails'])
-    # reads thumbnail url from model cache
+
+    # reads existing thumbnail url from model cache
     return self.images_thumbnails[key]
+
+  def cache_images(self, fields, sizes):
+    for f in fields:
+      for s in sizes:
+        self.get_image_thumbnail(f, s)
 
   class Meta:
     abstract = True
