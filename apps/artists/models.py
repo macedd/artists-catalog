@@ -15,8 +15,6 @@ def artist_directory_path(instance: models.Model, filename: str):
     return 'artists/{0}/{1}'.format(slug, filename)
 
 class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
-    _slug_from = 'name'
-
     name = models.CharField(
         max_length=120,
         verbose_name=_('Name')
@@ -99,7 +97,7 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
     )
 
     def save(self, *args, **kwargs):
-        self.save_slug()
+        self.make_slug('name')
         super(Artist, self).save(*args, **kwargs)
 
     class Meta:
@@ -110,8 +108,6 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
         return self.name
 
 class Category(SlugsBase, TimestampsBase):
-    _slug_from = 'title'
-
     title  = models.CharField(
         max_length=60,
         verbose_name=_('Title')
@@ -134,7 +130,7 @@ class Category(SlugsBase, TimestampsBase):
         unique_together = ('slug', 'parent',)    
 
     def save(self, *args, **kwargs):
-        self.save_slug()
+        self.make_slug('title')
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -188,3 +184,8 @@ class Portfolio(TimestampsBase, ThumbnailsBase):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.upload_type in ['drawing', 'photo']:
+            self.cache_images(['upload', 'link'], ['400x400', '1800'])
