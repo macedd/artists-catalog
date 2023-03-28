@@ -11,8 +11,6 @@ def news_directory_path(instance: models.Model, filename: str):
     return 'news/{0}_{1}'.format(slug, filename)
 
 class Article(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
-    _slug_from = 'title'
-
     title = models.CharField(
         max_length=240,
         verbose_name=_('Title')
@@ -33,7 +31,7 @@ class Article(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
     )
 
     def save(self, *args, **kwargs):
-        self.save_slug()
+        self.make_slug('title')
         super(Article, self).save(*args, **kwargs)
 
     class Meta:

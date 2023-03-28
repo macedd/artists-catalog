@@ -7,11 +7,11 @@ BASEDIR=`realpath $(dirname "$0")/../`
 
 echo "HOST=$HOST COMMAND=$COMMAND"
 
+TMP_FOLDER="$FOLDER/tmp"
+APP_FOLDER="$FOLDER/catalog"
+
 if [[ $COMMAND = "publish" ]]
 then
-
-    TMP_FOLDER="$FOLDER/tmp"
-    APP_FOLDER="$FOLDER/catalog"
 
     cd $BASEDIR
     git archive -o $BASEDIR/../catalog.zip HEAD
@@ -28,6 +28,13 @@ then
         docker-compose exec -T web entrypoint.sh migrate && \
         docker-compose exec -T web entrypoint.sh build && \
         docker-compose exec -T web entrypoint.sh reload && \
+        docker-compose logs | tail -n 14"
+
+elif [[ $COMMAND = "logs" ]]
+then
+
+    ssh "$HOST" "
+        cd $APP_FOLDER/deployments/ && \
         docker-compose logs | tail -n 14"
 
 else
