@@ -43,6 +43,8 @@ class PortfolioSerializer(serializers.ModelSerializer):
         if obj.link:
             if obj.upload_type in ['drawing', 'photo']:
                 return obj.get_image_thumbnail('link', '1800')
+            elif obj.upload_type in ['video']:
+                return obj.get_video_url('link')
             else:
                 return obj.link
 

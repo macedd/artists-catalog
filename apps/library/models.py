@@ -143,3 +143,12 @@ class VideosBase(models.Model):
     ytid = self._youtube_id(video)
     if ytid:
       return self._youtube_thumbnail(ytid)
+
+  def get_video_url(self, field):
+    video = getattr(self, field)
+    if not video:
+      return None
+
+    ytid = self._youtube_id(video)
+    if ytid:
+      return f'https://www.youtube.com/watch?v={ytid}'
