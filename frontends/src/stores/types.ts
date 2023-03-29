@@ -61,3 +61,9 @@ export interface ApiError {
   status: Number,
   data: Object,
 }
+
+export enum ReadyStateType {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}

@@ -14,6 +14,7 @@ const artistHelpers = useArtistHelpers();
 
 const drawings = artistHelpers.portfolioByType(props.artist, ArtistPortfolioType.DRAWING);
 const photos = artistHelpers.portfolioByType(props.artist, ArtistPortfolioType.PHOTO);
+const videos = artistHelpers.portfolioByType(props.artist, ArtistPortfolioType.VIDEO);
 
 </script>
 
@@ -31,6 +32,9 @@ const photos = artistHelpers.portfolioByType(props.artist, ArtistPortfolioType.P
       title="Fotos"
       :portfolio="photos"
       v-if="photos.length" />
-    <router-view></router-view>
+    <PortfolioCarousel
+      title="Vídeos"
+      :portfolio="videos"
+      v-if="videos.length" />
   </div>
 </template>

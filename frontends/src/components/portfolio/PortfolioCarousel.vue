@@ -53,14 +53,11 @@ function openGallery(index: number) {
         class="cursor-pointer">
         <!-- <router-link :to="`p/${item.upload_type}/${item.id}`"
           class="mx-3 mt-3 text-center"> -->
-        <PortfolioImage
-          v-if="item.upload_type == ArtistPortfolioType.DRAWING"
-          :item="item"
-          @click="openGallery(index)" />
-        <PortfolioImage
-          v-if="item.upload_type == ArtistPortfolioType.PHOTO"
-          :item="item"
-          @click="openGallery(index)" />
+        <a :href="item.media"
+          @click.prevent="openGallery(index)">
+          <PortfolioImage
+            :item="item" />
+        </a>
         <!-- </router-link> -->
       </Slide>
 
