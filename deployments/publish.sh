@@ -37,6 +37,14 @@ then
         cd $APP_FOLDER/deployments/ && \
         docker-compose logs | tail -n 14"
 
+elif [[ $COMMAND = "exec" ]]
+then
+
+    REMOTE_COMMAND="${@:4}"
+    ssh "$HOST" "
+        cd $APP_FOLDER/deployments/ && \
+        docker-compose exec web $REMOTE_COMMAND"
+
 else
 
     echo "$COMMAND command not implemented"

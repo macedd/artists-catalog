@@ -133,7 +133,7 @@ class VideosBase(models.Model):
     return None
 
   def _youtube_thumbnail(self, video_id):
-    return f'http://i.ytimg.com/vi/{video_id}s/maxresdefault.jpg'
+    return f'https://i.ytimg.com/vi/{video_id}/hqdefault.jpg'
 
   def get_video_thumbnail(self, field):
     video = getattr(self, field)
