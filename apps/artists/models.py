@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from .fields import PortfolioUploadField
-from apps.library.models import SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase
+from apps.library.models import SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase, VideosBase
 
 # Create your models here.
 
@@ -136,7 +136,7 @@ class Category(SlugsBase, TimestampsBase):
     def __str__(self):
         return self.title
 
-class Portfolio(TimestampsBase, ThumbnailsBase):
+class Portfolio(TimestampsBase, ThumbnailsBase, VideosBase):
     artist = models.ForeignKey(
         Artist,
         related_name='portfolio', 
@@ -187,5 +187,10 @@ class Portfolio(TimestampsBase, ThumbnailsBase):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        # caches images
         if self.upload_type in ['drawing', 'photo']:
-            self.cache_images(['upload', 'link'], ['400x400', '1800'])
+            self.cache_thumbnails(['upload', 'link'], ['400x400', '1800'])
+        # caches videos
+        if self.upload_type in ['video']:
+            thumbnail = self.get_video_thumbnail('link')
+            self.cache_images([thumbnail], ['400x400'])
