@@ -19,7 +19,7 @@ const videos = artistHelpers.portfolioByType(props.artist, ArtistPortfolioType.V
 </script>
 
 <template>
-  <div class="ml-2 md:ml-10 mr-2 md:mr-10">
+  <div class="">
     <div class="md:flex md:justify-between">
       <ArtistContentSide :artist="artist" />
       <ArtistContentBiography :artist="artist" />

@@ -8,8 +8,8 @@ const props = defineProps<{
 </script>
 
 <template>
-  <!-- Content Detail Right Section Start -->
-  <div class="relative bottom-28 md:static md:w-3/5">
+  <!-- Content Biography Start -->
+  <div class="mt-8 md:mt-0 md:static md:w-3/5">
     <div class="ml-4 w-11/12">
       <div class="md:mt-8">
         <!-- Artist Name -->
@@ -128,5 +128,5 @@ const props = defineProps<{
       </div>
     </div> -->
   </div>
-  <!-- Content Detail Right Section End -->
+  <!-- Content Biography End -->
 </template>
