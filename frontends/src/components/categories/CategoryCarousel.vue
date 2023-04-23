@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
@@ -19,13 +19,26 @@ const artists = store.artistsByCategory(props.category.slug)
 
 // Carousel configuration
 const carousel = ref<typeof Carousel|null>(null)
-let itemsToShow = 3;
+let itemsToShow = ref(3);
 
 // Responsive breakpoints
 const breakpoints = useBreakpoints(breakpointsTailwind)
-if (breakpoints.isGreater('md')) {
-  itemsToShow = 5
+function resolveItemsToShow() {
+  // breakpoints on md
+  if (breakpoints.isGreater('md')) {
+    itemsToShow.value = 5
+  } else {
+    itemsToShow.value = 3
+  }
 }
+// Listen to resize event
+onMounted(() => {
+  window.addEventListener("resize", resolveItemsToShow);
+  resolveItemsToShow();
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", resolveItemsToShow);
+});
 </script>
 
 <template>
@@ -41,24 +54,25 @@ if (breakpoints.isGreater('md')) {
       :items-to-scroll="itemsToShow"
       :transition=500
       :wrap-around="false"
+      :key="`carousel-${itemsToShow}`"
       snap-align="start"
       ref="carousel">
       <Slide v-for="(artist, index) in artists" :key="artist.slug"
-        style="align-items: flex-start;"
+        class="items-start px-3 pt-3 text-center"
         >
         <router-link :to="`/a/${artist.slug}/`"
-          class="mx-3 mt-3 text-center">
+          class="">
           <img :alt="artist.name"
-            class="aspect-square object-cover"
+            class="aspect-square object-cover max-w-full"
             :src="artist.photo_thumbnail"
             v-if="artist.photo_thumbnail" />
           <img alt="Artejucana"
-            class="aspect-square object-contain"
+            class="aspect-square object-contain max-w-full"
             v-else
             src="@/assets/images/logo-1.png" />
-          <h4 class="text-lg font-bold uppercase md:text-xl line-clamp-2">
+          <h4 class="text-lg font-bold uppercase md:text-xl break-words line-clamp-2">
             {{ artist.name }}</h4>
-          <em class="font-medium text-gray-500 md:text-lg line-clamp-2">
+          <em class="font-medium text-gray-500 md:text-lg break-all line-clamp-2">
             {{ artist.title }}</em>
         </router-link>
       </Slide>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
@@ -18,13 +18,26 @@ const props = defineProps<{
 
 // Carousel configuration
 const carousel = ref<typeof Carousel|null>(null)
-let itemsToShow = 3;
+let itemsToShow = ref(3);
 
 // Responsive breakpoints
 const breakpoints = useBreakpoints(breakpointsTailwind)
-if (breakpoints.isGreater('md')) {
-  itemsToShow = 5
+function resolveItemsToShow() {
+  // breakpoints on md
+  if (breakpoints.isGreater('md')) {
+    itemsToShow.value = 5
+  } else {
+    itemsToShow.value = 3
+  }
 }
+// Listen to resize event
+onMounted(() => {
+  window.addEventListener("resize", resolveItemsToShow);
+  resolveItemsToShow();
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", resolveItemsToShow);
+});
 
 // Gallery Modal
 const gallery = ref<typeof PortfolioGallery>(null)
@@ -46,13 +59,14 @@ function openGallery(index: number) {
       :items-to-scroll="itemsToShow"
       :transition=500
       :wrap-around="false"
+      :key="`carousel-${itemsToShow}`"
       snap-align="start"
       ref="carousel">
       <Slide v-for="(item, index) in portfolio" :key="index"
-        style="align-items: flex-start;"
-        class="cursor-pointer">
+        class="items-start px-3 pt-3 text-center cursor-pointer"
+      >
         <!-- <router-link :to="`p/${item.upload_type}/${item.id}`"
-          class="mx-3 mt-3 text-center"> -->
+          class=""> -->
         <a :href="item.media"
           @click.prevent="openGallery(index)">
           <PortfolioImage
