@@ -46,7 +46,7 @@ elif [[ $COMMAND = "migrate" ]]; then
 elif [[ $COMMAND = "install" ]]; then
 
     # python backend
-    pipenv install
+    pipenv sync
     # javasript frontend
     cd frontends
     npm install
