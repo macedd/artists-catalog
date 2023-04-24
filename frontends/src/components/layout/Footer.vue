@@ -48,10 +48,14 @@
       <!-- Menu -->
       <ul class="flex items-center mt-4 md:mt-0 uppercase text-sm text-gray-400">
           <li class="text-center block mr-6 md:mr-2 lg:mr-8">
-              <a href="#" class="hover:underline">Sobre Nós</a>
+              <router-link :to="`/a/artejucana/`"
+                class="hover:underline">
+                Sobre Nós
+              </router-link>
           </li>
           <li class="text-center block">
-              <a href="#" class="hover:underline">Contato</a>
+              <a href="mailto:fsarthur@yahoo.com.br" class="hover:underline">
+                Contato</a>
           </li>
       </ul>
     </div>
