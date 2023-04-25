@@ -23,6 +23,12 @@
           alt="search" />
       </div>
     </div> -->
+    <!-- Logos -->
+    <div class="mt-4 md:mt-0">
+        <img src="@/assets/images/artejucana-UFU.png"
+          class="mr-3 h-10 lg:h-14 invert"
+          alt="Artejucana e UFU" />
+    </div>
   </div>
   <!-- Logo and Search Section End -->
 </template>
