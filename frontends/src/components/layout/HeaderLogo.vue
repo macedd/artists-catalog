@@ -5,7 +5,7 @@
   <!-- Logo and Search Section Start -->
   <div class="container mx-auto my-4 md:my-6 flex flex-col md:flex-row items-center justify-between">
     <!-- Logo -->
-    <div class="mx-auto md:mx-0">
+    <div class="mx-auto">
       <router-link :to="{ name: 'home' }">
         <img class="w-64" src="@/assets/images/logo-1.png" alt="logo" />
       </router-link>
@@ -24,11 +24,11 @@
       </div>
     </div> -->
     <!-- Logos -->
-    <div class="mt-4 md:mt-0">
+    <!-- <div class="mt-4 md:mt-0">
         <img src="@/assets/images/artejucana-UFU.png"
           class="mr-3 h-10 lg:h-14 invert"
           alt="Artejucana e UFU" />
-    </div>
+    </div> -->
   </div>
   <!-- Logo and Search Section End -->
 </template>

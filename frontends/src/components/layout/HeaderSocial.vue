@@ -3,8 +3,7 @@
 
 <template>
   <div class="bg-[#212121] py-3 text-white">
-    <div
-      class="container mx-auto flex justify-end">
+    <div class="container mx-auto flex justify-center">
       <!-- Social icons -->
       <div
         class="flex items-center">
