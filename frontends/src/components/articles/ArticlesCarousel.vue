@@ -74,15 +74,13 @@ function articleUrl(article: Article) {
       <template #addons="{ slidesCount, currentSlide }">
         <div @click="gallery?.next"
           class="p-4 cursor-pointer absolute top-1/2 -right-4 md:-right-8 -translate-y-1/2"
-          v-if="currentSlide < (slidesCount - 1)"
-          tabindex="0">
+          v-if="currentSlide < (slidesCount - 1)">
           <img class="w-10 md:w-14"
             src="@/assets/images/carousel-arrow.png" alt="arrow-right" />
         </div>
         <div @click="gallery?.prev"
           class="p-4 cursor-pointer absolute top-1/2 -left-4 md:-left-8 -translate-y-1/2 rotate-180"
-          v-if="currentSlide > 0"
-          tabindex="0">
+          v-if="currentSlide > 0">
           <img class="w-10 md:w-14"
             src="@/assets/images/carousel-arrow.png" alt="arrow-left" />
         </div>

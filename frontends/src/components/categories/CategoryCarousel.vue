@@ -43,7 +43,7 @@ onUnmounted(() => {
 
 <template>
   <!-- category -->
-  <div class="my-8">
+  <div class="my-4 md:my-8">
     <h3
       class="bg-[#212121] py-2 px-8 text-xl font-medium uppercase text-white md:text-3xl">
       {{ category.title }}
@@ -54,6 +54,7 @@ onUnmounted(() => {
       :items-to-scroll="itemsToShow"
       :transition=500
       :wrap-around="false"
+      :mouse-drag="false"
       :key="`carousel-${itemsToShow}`"
       snap-align="start"
       ref="carousel">
@@ -61,7 +62,7 @@ onUnmounted(() => {
         class="items-start px-3 pt-3 text-center"
         >
         <router-link :to="`/a/${artist.slug}/`"
-          class="">
+          class="max-w-full">
           <img :alt="artist.name"
             class="aspect-square object-cover max-w-full"
             :src="artist.photo_thumbnail"
@@ -70,9 +71,9 @@ onUnmounted(() => {
             class="aspect-square object-contain max-w-full"
             v-else
             src="@/assets/images/logo-1.png" />
-          <h4 class="text-lg font-bold uppercase md:text-xl break-words line-clamp-2">
+          <h4 class="text-sm md:text-lg font-bold uppercase md:text-xl break-word line-clamp-2">
             {{ artist.name }}</h4>
-          <em class="font-medium text-gray-500 md:text-lg break-all line-clamp-2">
+          <em class="text-sm md:text-base text-gray-500 md:text-lg break-all line-clamp-2">
             {{ artist.title }}</em>
         </router-link>
       </Slide>
