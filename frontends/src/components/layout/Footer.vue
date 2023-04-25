@@ -54,7 +54,7 @@
               </router-link>
           </li>
           <li class="text-center block">
-              <a href="mailto:fsarthur@yahoo.com.br" class="hover:underline">
+              <a href="https://wa.me/5534996664244" class="hover:underline">
                 Contato</a>
           </li>
       </ul>
