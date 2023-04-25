@@ -45,6 +45,14 @@ then
         cd $APP_FOLDER/deployments/ && \
         docker-compose exec web $REMOTE_COMMAND"
 
+elif [[ $COMMAND = "docker" ]]
+then
+
+    REMOTE_COMMAND="${@:4}"
+    ssh "$HOST" "
+        cd $APP_FOLDER/deployments/ && \
+        docker-compose $REMOTE_COMMAND"
+
 else
 
     echo "$COMMAND command not implemented"
