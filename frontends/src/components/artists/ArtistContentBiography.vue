@@ -5,6 +5,12 @@ const props = defineProps<{
   artist: Artist;
 }>();
 
+function editarLink() {
+  props.artist.name
+  const message = `Olá, gostaria de solicitar as seguintes mudanças no perfil do artista ${props.artist.name} (${window.location.href}):\n`;
+  const link = `https://wa.me/5534996664244?text=${message}`;
+  return link;
+}
 </script>
 
 <template>
@@ -30,6 +36,13 @@ const props = defineProps<{
           #{{ category.slug }}
         </li>
       </ul>
+
+      <a
+        :href="editarLink()"
+        target="_blank"
+        class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
+        title="Acrescentar ou editar informações do perfil">
+        Editar Informações</a>
     </div>
     <!-- Artist Portfolio -->
     <!-- <div>
