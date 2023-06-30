@@ -5,7 +5,7 @@ const props = defineProps<{
   artist: Artist;
 }>();
 
-function editarLink() {
+function whatsappEditLink() {
   props.artist.name
   const message = `Olá, gostaria de solicitar as seguintes mudanças no perfil do artista ${props.artist.name} (${window.location.href}):\n`;
   const link = `https://wa.me/5534996664244?text=${message}`;
@@ -37,12 +37,15 @@ function editarLink() {
         </li>
       </ul>
 
-      <a
-        :href="editarLink()"
-        target="_blank"
-        class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
-        title="Acrescentar ou editar informações do perfil">
-        Editar Informações</a>
+      <div
+        class="py-4">
+        <a
+          :href="whatsappEditLink()"
+          target="_blank"
+          class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
+          title="Acrescentar ou editar informações neste perfil">
+          Editar Informações</a>
+      </div>
     </div>
     <!-- Artist Portfolio -->
     <!-- <div>

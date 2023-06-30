@@ -18,7 +18,7 @@ const categories = categoriesStore.categoriesRoot()
     <div v-if="!!categoriesStore.error?.code"
       class="error" />
     <h2
-      class="py-4 pt-8 px-8 text-xl font-medium uppercase text-center text-[#C74005] md:text-3xl">
+      class="mb-2 mt-6 font-bold uppercase text-center text-[#C74005] text-3xl">
       Artistas de Ituiutaba</h2>
     <CategoryCarousel
       v-for="category in categories"
