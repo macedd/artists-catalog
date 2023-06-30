@@ -39,7 +39,7 @@ class CategoryAdmin(admin.ModelAdmin):
         (None, {'fields': ['title', 'parent']}),
         (_('Homepage Featured'), {'fields': ['featured']}),
     ]
-    list_filter = ['featured']
+    list_filter = ['featured', 'parent']
     list_display = ('title', 'parent', 'featured')
 
 class PortfolioAdmin(admin.ModelAdmin):

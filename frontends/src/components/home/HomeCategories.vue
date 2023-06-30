@@ -9,11 +9,6 @@ import CategoryCarousel from '../categories/CategoryCarousel.vue';
 const categoriesStore = useCategoryListStore();
 const artistsStore = useArtistsListStore();
 
-await Promise.all([
-  categoriesStore.load(),
-  artistsStore.load()
-])
-
 const categories = categoriesStore.categoriesRoot()
 
 </script>

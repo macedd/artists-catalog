@@ -3,7 +3,6 @@ import { useArticleListStore } from '../../stores/article';
 import ArticleSlider from '../articles/ArticlesCarousel.vue';
 
 const store = useArticleListStore();
-await store.load();
 
 </script>
 

@@ -4,6 +4,19 @@ import { useHead } from '@vueuse/head'
 
 import HomeArticles from "../components/home/HomeArticles.vue";
 import HomeCategories from "../components/home/HomeCategories.vue";
+import { useArticleListStore } from '../stores/article';
+import { useCategoryListStore } from '../stores/category';
+import { useArtistsListStore } from '../stores/artist';
+
+const categoriesStore = useCategoryListStore();
+const artistsStore = useArtistsListStore();
+const articlesStore = useArticleListStore();
+
+await Promise.all([
+  categoriesStore.load(),
+  artistsStore.load(),
+  articlesStore.load()
+]);
 
 // onActivated(() => console.log('HomeView Activated'))
 
