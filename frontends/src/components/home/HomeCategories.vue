@@ -17,8 +17,10 @@ const categories = categoriesStore.categoriesRoot()
   <section>
     <div v-if="!!categoriesStore.error?.code"
       class="error" />
+    <h2
+      class="py-4 pt-8 px-8 text-xl font-medium uppercase text-center text-[#C74005] md:text-3xl">
+      Artistas de Ituiutaba</h2>
     <CategoryCarousel
-      v-else-if="categories?.length"
       v-for="category in categories"
       :key="category.slug"
       :category="category" />
