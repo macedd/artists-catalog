@@ -38,20 +38,34 @@ let currentSlide = ref(0);
 function slideTo(val: number) {
   currentSlide.value = val
 }
+function slideNext() {
+  gallery.value.next()
+}
+
 function goToArticle(article: Article) {
-  window.open(articleUrl(article), '_blank');
+  window.open(articleUrl(article), '_artejucana');
 }
 function articleUrl(article: Article) {
   return `/news/${article.slug}/`;
+}
+
+const timer = setInterval(slideNext, 1000 * 5)
+function clearTimer() {
+  clearInterval(timer)
 }
 </script>
 
 <template>
   <div>
+    <h3
+      class="bg-[#212121] py-2 px-8 text-xl font-medium uppercase text-white md:text-3xl">
+      Notícias
+    </h3>
+
     <!-- active slide -->
     <Carousel
       :items-to-show="1"
-      :wrap-around="false"
+      :wrap-around="true"
       :mouse-drag="false"
       v-model="currentSlide"
       class="md:w-9/12 mx-auto"
@@ -72,13 +86,13 @@ function articleUrl(article: Article) {
 
       <!-- navigation -->
       <template #addons="{ slidesCount, currentSlide }">
-        <div @click="gallery?.next"
+        <div @click="gallery?.next() & clearTimer()"
           class="p-4 cursor-pointer absolute top-1/2 -right-4 md:-right-8 -translate-y-1/2"
           v-if="currentSlide < (slidesCount - 1)">
           <img class="w-10 md:w-14"
             src="@/assets/images/carousel-arrow.png" alt="arrow-right" />
         </div>
-        <div @click="gallery?.prev"
+        <div @click="gallery?.prev() & clearTimer();"
           class="p-4 cursor-pointer absolute top-1/2 -left-4 md:-left-8 -translate-y-1/2 rotate-180"
           v-if="currentSlide > 0">
           <img class="w-10 md:w-14"
@@ -86,6 +100,7 @@ function articleUrl(article: Article) {
         </div>
       </template>
     </Carousel>
+
     <!-- gallery -->
     <Carousel
       :items-to-show="itemsToShow"

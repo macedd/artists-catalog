@@ -16,6 +16,7 @@ const galleryImages =
     props.portfolio.map((p) => ({
             src: p.media,
             description: p.title,
+            controls: true,
         })
     );
 
@@ -37,6 +38,9 @@ defineExpose({ openModal, closeModal });
 <style lang="css">
 a.silentbox-item {
     display: none;
+}
+video.silentbox-video__embed {
+    max-height: 100%;
 }
 </style>
 
