@@ -2,11 +2,17 @@
 // import { ref, computed } from "vue";
 
 import type { ArtistPortfolio } from '../../stores/types';
+import { ArtistPortfolioType } from '../../stores/types';
+import { isLocalVideo, getCachedVideoCover } from '../../stores/helpers';
 
 // Properties
 const props = defineProps<{
   item: ArtistPortfolio;
 }>();
+
+if (props.item.upload_type === ArtistPortfolioType.VIDEO && isLocalVideo(props.item.media)) {
+    props.item.thumbnail = await getCachedVideoCover(props.item.media);
+}
 </script>
 
 <template>

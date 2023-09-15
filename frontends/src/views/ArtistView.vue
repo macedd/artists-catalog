@@ -17,12 +17,12 @@ const artist = store.artist
 
 if (artist) {
   useHead({
-    title: `${artist.name} - ArtejucanA`,
+    title: `${artist.name}, ${artist.title} - ArtejucanA`,
     meta: [
-      {
-        name: 'description',
-        content: `${artist.name}, ${artist.title}, natural de ${artist.birth_city}.`,
-      },
+      // {
+      //   name: 'description',
+      //   content: `${artist.name}, ${artist.title}, natural de ${artist.birth_city}.`,
+      // },
     ],
     link: [
       {

@@ -31,6 +31,6 @@ def content_title(url):
             artist = Artist.get(content.kwargs.get('artist'))
         except Artist.DoesNotExist:
             return None
-        return f"{artist.name} - ArtejucanA"
+        return f"{artist.name}, {artist.title} - ArtejucanA"
     else:
         return None
