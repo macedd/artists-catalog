@@ -8,7 +8,11 @@
 
 		{% block meta %}
     <title>
-      ArtejucanA - Unidos pela Cultura de Ituiutaba!
+      {% if title %}
+        {{ title }}
+      {% else %}
+        ArtejucanA - Unidos pela Cultura de Ituiutaba!
+      {% endif %}
     </title>
     <meta name="description" content="" />
 		{% endblock %}

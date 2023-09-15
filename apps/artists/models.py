@@ -106,6 +106,13 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
         
     def __str__(self):
         return self.name
+    
+    def get(artist_slug):
+        try:
+            return Artist.objects.get(slug=artist_slug)
+        except Artist.DoesNotExist:
+            return Artist.objects.get(past_slugs__contains=artist_slug)
+
 
 class Category(SlugsBase, TimestampsBase):
     title  = models.CharField(
@@ -150,10 +157,11 @@ class Portfolio(TimestampsBase, ThumbnailsBase, VideosBase):
     )
 
     class UploadTypes(models.TextChoices):
-        MUSIC   = 'music', _('Music')
-        DRAWING = 'drawing', _('Drawing')
-        PHOTO   = 'photo', _('Photo')
-        VIDEO   = 'video', _('Video')
+        MUSIC    = 'music', _('Music')
+        DRAWING  = 'drawing', _('Drawing')
+        PHOTO    = 'photo', _('Photo')
+        VIDEO    = 'video', _('Video')
+        PAINTING = 'painting', _('Painting')
 
     upload_type = models.CharField(
         max_length=10,
