@@ -71,7 +71,7 @@ function clearTimer() {
       class="md:w-9/12 mx-auto"
       ref="gallery">
       <Slide v-for="article in articles" :key="article.slug">
-        <div class="relative cursor-pointer"
+        <div class="relative cursor-pointer my-0 h-full w-10/12"
           @click="goToArticle(article)">
           <a :href="articleUrl(article)" 
             @click.prevent
