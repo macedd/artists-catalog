@@ -8,13 +8,13 @@ import ArtistView from "../views/ArtistView.vue";
 const router = createRouter({
   history: createWebHistory('/'),
   routes: [
+    // {
+    //   path: "/",
+    //   name: "placeholder",
+    //   component: HomePlaceholder,
+    // },
     {
       path: "/",
-      name: "placeholder",
-      component: HomePlaceholder,
-    },
-    {
-      path: "/home",
       name: "home",
       component: HomeView,
     },
