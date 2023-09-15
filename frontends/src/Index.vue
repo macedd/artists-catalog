@@ -9,7 +9,7 @@ import Footer from './components/layout/Footer.vue'
 <div>
   <!-- Layout Header -->
   <Header />
-  <div class="container mx-auto my-4 md:my-8">
+  <div class="container mx-auto mt-4 mb-4 md:mb-8">
     <RouterView v-slot="{ Component }">
       <keep-alive include="HomeView,">
         <Suspense timeout="1">

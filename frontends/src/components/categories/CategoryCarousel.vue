@@ -45,7 +45,7 @@ onUnmounted(() => {
   <!-- category -->
   <div class="my-4 md:my-8">
     <h3
-      class="bg-[#212121] py-2 px-8 text-xl font-medium uppercase text-white md:text-3xl">
+      class="bg-[#212121] py-2 px-8 text-xl mb-2 mt-6 uppercase text-white md:text-3xl">
       {{ category.title }}
     </h3>
     <!-- gallery -->

@@ -17,9 +17,10 @@ const categories = categoriesStore.categoriesRoot()
   <section>
     <div v-if="!!categoriesStore.error?.code"
       class="error" />
-    <h2
-      class="mb-2 mt-6 font-bold uppercase text-center text-[#C74005] text-3xl">
-      Artistas de Ituiutaba</h2>
+    <h3
+      class="bg-[#ed702d] py-2 px-8 mt-8 md:mt-8 -mb-2 md:-mb-4 text-xl font-bold uppercase text-white text-center md:text-3xl">
+      Artistas de Ituiutaba
+    </h3>
     <CategoryCarousel
       v-for="category in categories"
       :key="category.slug"

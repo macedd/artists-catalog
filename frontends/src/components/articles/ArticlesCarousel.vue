@@ -58,7 +58,7 @@ function clearTimer() {
 <template>
   <div>
     <h3
-      class="bg-[#212121] py-2 px-8 text-xl font-medium uppercase text-white md:text-3xl">
+      class="bg-[#ed702d] py-2 px-8 mb-4 text-xl font-medium uppercase text-white text-center md:text-3xl">
       Notícias
     </h3>
 
