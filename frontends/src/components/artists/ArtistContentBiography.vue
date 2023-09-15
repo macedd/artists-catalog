@@ -11,6 +11,15 @@ function whatsappEditLink() {
   const link = `https://wa.me/5534996664244?text=${message}`;
   return link;
 }
+function sharePageLink() {
+  navigator.share({
+    url: props.artist.permalink,
+    title: `${props.artist.name}, ${props.artist.title} - ArtejucanA`,
+  })
+}
+function hasShareFeature() {
+  return !!navigator.share
+}
 </script>
 
 <template>
@@ -39,12 +48,22 @@ function whatsappEditLink() {
 
       <div
         class="py-4">
+        <!-- https://flowbite.com/docs/components/buttons/ -->
         <a
           :href="whatsappEditLink()"
           target="_blank"
           class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
           title="Acrescentar ou editar informações neste perfil">
           Editar Informações</a>
+
+        <a
+          type="button"
+          @click.prevent
+          @click="sharePageLink()"
+          v-if="hasShareFeature()"
+          class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">
+          Compartilhar
+        </a>
       </div>
     </div>
     <!-- Artist Portfolio -->

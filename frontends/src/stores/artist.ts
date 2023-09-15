@@ -21,7 +21,8 @@ export const useArtistDetailStore = defineStore("artistDetail", () => {
   function success(data: any) {
     artist.value = {
       ...data,
-      birth_date: data.birth_date ? new Date(data.birth_date) : null
+      birth_date: data.birth_date ? new Date(data.birth_date) : null,
+      permalink: `https://artejucana.com.br/a/${data.slug}/`,
     } as Artist
     state.value = ReadyStateType.SUCCESS
   }

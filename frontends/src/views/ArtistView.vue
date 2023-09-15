@@ -27,7 +27,7 @@ if (artist) {
     link: [
       {
         rel: 'canonical',
-        href: `https://artejucana.com.br/a/${artist.slug}/`
+        href: artist.permalink
       }
     ]
   })

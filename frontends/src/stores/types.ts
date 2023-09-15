@@ -45,6 +45,8 @@ export interface Artist {
   whatsapp: string|null,
   youtube: string|null,
   portfolio: ArtistPortfolio[],
+  // custom attributes
+  permalink: string,
 }
 
 export interface Article {
