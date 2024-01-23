@@ -5,17 +5,16 @@ import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-import type { ArtistCategory, Artist } from '../../stores/types';
-import { useArtistsListStore } from '../../stores/artist';
+import type { ArtistPortfolio } from '../../stores/types';
+import { ArtistPortfolioType } from '../../stores/types';
+import PortfolioImage from './PortfolioImage.vue';
+import PortfolioGallery from './PortfolioGallery.vue';
 
 // Properties
 const props = defineProps<{
-  category: ArtistCategory;
+  title: string;
+  portfolio: ArtistPortfolio[];
 }>();
-
-// Store loading artists
-const store = useArtistsListStore();
-const artists = store.artistsByCategory(props.category.slug)
 
 // Carousel configuration
 const carousel = ref<typeof Carousel|null>(null)
@@ -39,14 +38,20 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", resolveItemsToShow);
 });
+
+// Gallery Modal
+const gallery = ref<typeof PortfolioGallery>(null)
+function openGallery(index: number) {
+  gallery.value.openModal(index);
+}
 </script>
 
 <template>
   <!-- category -->
-  <div class="my-4 md:my-8">
+  <div class="my-8">
     <h3
-      class="bg-[#212121] py-2 px-8 text-xl mb-2 mt-6 uppercase text-white md:text-3xl">
-      {{ category.title }}
+      class="bg-[#212121] py-2 px-8 text-xl font-medium uppercase text-white md:text-3xl">
+      {{ title }}
     </h3>
     <!-- gallery -->
     <Carousel
@@ -54,28 +59,20 @@ onUnmounted(() => {
       :items-to-scroll="itemsToShow"
       :transition=500
       :wrap-around="false"
-      :mouse-drag="false"
       :key="`carousel-${itemsToShow}`"
       snap-align="start"
       ref="carousel">
-      <Slide v-for="(artist, index) in artists" :key="artist.slug"
-        class="items-start px-3 pt-3 text-center"
-        >
-        <router-link :to="`/a/${artist.slug}/`"
-          class="max-w-full">
-          <img :alt="artist.name"
-            class="aspect-square object-cover max-w-full"
-            :src="artist.photo_thumbnail"
-            v-if="artist.photo_thumbnail" />
-          <img alt="Artejucana"
-            class="aspect-square object-contain max-w-full"
-            v-else
-            src="@/assets/images/logo-1.png" />
-          <h4 class="text-sm md:text-lg font-bold uppercase md:text-xl break-word line-clamp-2">
-            {{ artist.name }}</h4>
-          <em class="text-sm md:text-base text-gray-500 md:text-lg break-all line-clamp-2">
-            {{ artist.title }}</em>
-        </router-link>
+      <Slide v-for="(item, index) in portfolio" :key="index"
+        class="items-start px-3 pt-3 text-center cursor-pointer"
+      >
+        <!-- <router-link :to="`p/${item.upload_type}/${item.id}`"
+          class=""> -->
+        <a :href="item.media"
+          @click.prevent="openGallery(index)">
+          <PortfolioImage
+            :item="item" />
+        </a>
+        <!-- </router-link> -->
       </Slide>
 
       <!-- navigation -->
@@ -94,6 +91,11 @@ onUnmounted(() => {
         </div>
       </template>
     </Carousel>
+
+    <PortfolioGallery
+      :title="title"
+      :portfolio="portfolio"
+      ref="gallery" />
   </div>
 </template>
 

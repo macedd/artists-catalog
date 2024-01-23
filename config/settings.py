@@ -31,7 +31,7 @@ DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['artejucana.budi.tech', 'artejucana.com.br', 'localhost']
 CSRF_TRUSTED_ORIGINS = ['https://artejucana.budi.tech', 'https://artejucana.com.br']
-CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:5173']
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://localhost:8002']
 
 # Application definition
 

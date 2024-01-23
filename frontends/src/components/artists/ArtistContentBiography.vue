@@ -5,12 +5,27 @@ const props = defineProps<{
   artist: Artist;
 }>();
 
+function whatsappEditLink() {
+  props.artist.name
+  const message = `Olá, gostaria de solicitar as seguintes mudanças no perfil do artista ${props.artist.name} (${window.location.href}):\n`;
+  const link = `https://wa.me/5534996664244?text=${message}`;
+  return link;
+}
+function sharePageLink() {
+  navigator.share({
+    url: props.artist.permalink,
+    title: `${props.artist.name}, ${props.artist.title} - ArtejucanA`,
+  })
+}
+function hasShareFeature() {
+  return !!navigator.share
+}
 </script>
 
 <template>
-  <!-- Content Detail Right Section Start -->
-  <div class="relative bottom-28 md:static md:w-3/5">
-    <div class="ml-4 w-11/12 md:pr-[20px]">
+  <!-- Content Biography Start -->
+  <div class="mt-8 md:mt-0 md:static md:w-3/5">
+    <div class="ml-4 w-11/12">
       <div class="md:mt-8">
         <!-- Artist Name -->
         <h1 class="mb-2 font-bold uppercase text-[#C74005] text-3xl">
@@ -30,6 +45,26 @@ const props = defineProps<{
           #{{ category.slug }}
         </li>
       </ul>
+
+      <div
+        class="py-4">
+        <!-- https://flowbite.com/docs/components/buttons/ -->
+        <a
+          :href="whatsappEditLink()"
+          target="_blank"
+          class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
+          title="Acrescentar ou editar informações neste perfil">
+          Editar Informações</a>
+
+        <a
+          type="button"
+          @click.prevent
+          @click="sharePageLink()"
+          v-if="hasShareFeature()"
+          class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">
+          Compartilhar
+        </a>
+      </div>
     </div>
     <!-- Artist Portfolio -->
     <!-- <div>
@@ -128,5 +163,5 @@ const props = defineProps<{
       </div>
     </div> -->
   </div>
-  <!-- Content Detail Right Section End -->
+  <!-- Content Biography End -->
 </template>

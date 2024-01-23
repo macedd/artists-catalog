@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useArticleListStore } from '../../stores/article';
-import ArticleSlider from '../articles/ArticlesCarousel.vue';
+import ArticlesCarousel from '../articles/ArticlesCarousel.vue';
 
 const store = useArticleListStore();
-await store.load();
 
 </script>
 
@@ -11,7 +10,7 @@ await store.load();
   <section>
     <div v-if="!!store.error?.code"
       class="error" />
-    <ArticleSlider
+    <ArticlesCarousel
       v-else-if="store.articles?.length"
       :articles="store.articles" />
   </section>

@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3
+FROM python:3-bullseye
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -13,7 +13,6 @@ RUN apt-get update && \
 
 RUN npm -g install less
 RUN python -m pip install \
-                  gunicorn \
                   pipenv
 
 ENV NVM_DIR /usr/local/nvm

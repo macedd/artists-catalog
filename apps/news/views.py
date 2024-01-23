@@ -12,7 +12,7 @@ def detail_redirect(request, article_slug):
         article = Article.objects.get(slug=article_slug)
     except Artist.DoesNotExist:
         raise Http404("Article does not exist")
-    article.views_increment()
+    article.increment_views()
     return redirect(article.link)
 
 

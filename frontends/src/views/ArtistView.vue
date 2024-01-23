@@ -15,21 +15,24 @@ await store.load(artist_slug);
 
 const artist = store.artist
 
-useHead({
-  title: `${artist.name} - ArtejucanA`,
-  meta: [
-    {
-      name: 'description',
-      content: `${artist.name}, ${artist.title}, natural de ${artist.birth_city}.`,
-    },
-  ],
-  link: [
-    {
-      rel: 'canonical',
-      href: `https://artejucana.com.br/a/${artist.slug}/`
-    }
-  ]
-})
+if (artist) {
+  useHead({
+    title: `${artist.name}, ${artist.title} - ArtejucanA`,
+    meta: [
+      // {
+      //   name: 'description',
+      //   content: `${artist.name}, ${artist.title}, natural de ${artist.birth_city}.`,
+      // },
+    ],
+    link: [
+      {
+        rel: 'canonical',
+        href: artist.permalink
+      }
+    ]
+  })
+}
+
 
 </script>
 

@@ -9,7 +9,7 @@ export interface ArtistCategory {
   parent: ParentCategory,
 }
 
-enum ArtistPortfolioType {
+export enum ArtistPortfolioType {
   MUSIC = 'music',
   DRAWING = 'drawing',
   PHOTO = 'photo',
@@ -20,8 +20,8 @@ export interface ArtistPortfolio {
   id: Number,
   title: string,
   upload_type: ArtistPortfolioType,
-  link: string|null,
-  upload: string|null,
+  thumbnail: string|null,
+  media: string|null,
 }
 
 export interface Artist {
@@ -45,6 +45,8 @@ export interface Artist {
   whatsapp: string|null,
   youtube: string|null,
   portfolio: ArtistPortfolio[],
+  // custom attributes
+  permalink: string,
 }
 
 export interface Article {
@@ -60,4 +62,10 @@ export interface ApiError {
   code: string,
   status: Number,
   data: Object,
+}
+
+export enum ReadyStateType {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
 }

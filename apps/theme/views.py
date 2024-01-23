@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404
 from django.template import loader
 from django.views import generic
 
+from .library import content_title
 # Create your views here.
 
 # homepage placeholder
@@ -11,7 +12,9 @@ def homepage(request):
 
 # vuejs application
 def vuejs(request, resource):
-    return render(request, 'home/vuejs.html')
+    # match content resource for rendering html metadata
+    title = content_title(request.build_absolute_uri())
+    return render(request, 'home/vuejs.html', {'title': title})
 
 
 

@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from .fields import PortfolioUploadField
-from apps.library.models import SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase
+from apps.library.models import SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase, VideosBase
 
 # Create your models here.
 
@@ -15,8 +15,6 @@ def artist_directory_path(instance: models.Model, filename: str):
     return 'artists/{0}/{1}'.format(slug, filename)
 
 class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
-    _slug_from = 'name'
-
     name = models.CharField(
         max_length=120,
         verbose_name=_('Name')
@@ -99,7 +97,7 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
     )
 
     def save(self, *args, **kwargs):
-        self.save_slug()
+        self.make_slug('name')
         super(Artist, self).save(*args, **kwargs)
 
     class Meta:
@@ -108,10 +106,15 @@ class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
         
     def __str__(self):
         return self.name
+    
+    def get(artist_slug):
+        try:
+            return Artist.objects.get(slug=artist_slug)
+        except Artist.DoesNotExist:
+            return Artist.objects.get(past_slugs__contains=artist_slug)
+
 
 class Category(SlugsBase, TimestampsBase):
-    _slug_from = 'title'
-
     title  = models.CharField(
         max_length=60,
         verbose_name=_('Title')
@@ -134,13 +137,13 @@ class Category(SlugsBase, TimestampsBase):
         unique_together = ('slug', 'parent',)    
 
     def save(self, *args, **kwargs):
-        self.save_slug()
+        self.make_slug('title')
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
-class Portfolio(TimestampsBase):
+class Portfolio(TimestampsBase, ThumbnailsBase, VideosBase):
     artist = models.ForeignKey(
         Artist,
         related_name='portfolio', 
@@ -154,10 +157,11 @@ class Portfolio(TimestampsBase):
     )
 
     class UploadTypes(models.TextChoices):
-        MUSIC   = 'music', _('Music')
-        DRAWING = 'drawing', _('Drawing')
-        PHOTO   = 'photo', _('Photo')
-        VIDEO   = 'video', _('Video')
+        MUSIC    = 'music', _('Music')
+        DRAWING  = 'drawing', _('Drawing')
+        PHOTO    = 'photo', _('Photo')
+        VIDEO    = 'video', _('Video')
+        PAINTING = 'painting', _('Painting')
 
     upload_type = models.CharField(
         max_length=10,
@@ -188,3 +192,13 @@ class Portfolio(TimestampsBase):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # caches images
+        if self.upload_type in ['drawing', 'photo']:
+            self.cache_thumbnails(['upload', 'link'], ['400x400', '1800'])
+        # caches videos
+        if self.upload_type in ['video']:
+            thumbnail = self.get_video_thumbnail('link')
+            self.cache_images([thumbnail], ['400x400'])

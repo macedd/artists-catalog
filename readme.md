@@ -1,5 +1,5 @@
 
-Start
+**Start application**
 
     cd deployments
     docker-compose build
@@ -8,40 +8,33 @@ Start
     docker-compose run web build
     docker-compose up -d
 
-First run
+**First run**
 
     ln -s `pwd`/deployments/docker-compose-local.yml deployments/docker-compose.override.yml
     docker-compose exec db mysql -e "create database catalog"
     docker-compose exec web pipenv run python manage.py createsuperuser
+    docker-compose exec web pipenv run python manage.py createcachetable
+    
 
-App bootstrap
 
-    docker-compose exec web entrypoint.sh install
-    docker-compose exec web entrypoint.sh migrate
-    docker-compose exec web entrypoint.sh build
-
-Development
+**Development**
 
     # make app migrations
     docker-compose exec web \
         pipenv run python manage.py makemigrations artists
 
-Translations
+**Translations**
 
     # create/update languages
     django-admin makemessages -l pt_BR
     # compile languages
     django-admin compilemessages
 
-Frontends only
+**Frontends only**
 
-    docker-compose run -p 5173:5173 web frontend
+    docker-compose run --no-deps -p 5173:5173 web frontend
 
-    cd frontends
-    npm install
-    npm run dev
-
-Debug Django
+**Debug Django**
 
     docker ps
     docker attach $containerID

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 HOST=${1}
 FOLDER=${2}
@@ -7,15 +7,15 @@ BASEDIR=`realpath $(dirname "$0")/../`
 
 echo "HOST=$HOST COMMAND=$COMMAND"
 
+TMP_FOLDER="$FOLDER/tmp"
+APP_FOLDER="$FOLDER/catalog"
+
 if [[ $COMMAND = "publish" ]]
 then
 
-    TMP_FOLDER="$FOLDER/tmp"
-    APP_FOLDER="$FOLDER/catalog"
-
     cd $BASEDIR
-    git archive -o ../catalog.zip HEAD
-    scp ../catalog.zip "$HOST":~
+    git archive -o $BASEDIR/../catalog.zip HEAD
+    scp $BASEDIR/../catalog.zip "$HOST":~
     ssh "$HOST" "
         unzip -q -u -o ~/catalog.zip -d $APP_FOLDER && \
         cd $APP_FOLDER/deployments/ && \
@@ -29,6 +29,29 @@ then
         docker-compose exec -T web entrypoint.sh build && \
         docker-compose exec -T web entrypoint.sh reload && \
         docker-compose logs | tail -n 14"
+
+elif [[ $COMMAND = "logs" ]]
+then
+
+    ssh "$HOST" "
+        cd $APP_FOLDER/deployments/ && \
+        docker-compose logs | tail -n 14"
+
+elif [[ $COMMAND = "exec" ]]
+then
+
+    REMOTE_COMMAND="${@:4}"
+    ssh "$HOST" "
+        cd $APP_FOLDER/deployments/ && \
+        docker-compose exec web $REMOTE_COMMAND"
+
+elif [[ $COMMAND = "docker" ]]
+then
+
+    REMOTE_COMMAND="${@:4}"
+    ssh "$HOST" "
+        cd $APP_FOLDER/deployments/ && \
+        docker-compose $REMOTE_COMMAND"
 
 else
 

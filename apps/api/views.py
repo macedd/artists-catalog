@@ -35,6 +35,7 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         """
         queryset = self.filter_queryset(self.get_queryset())
 
+        # lookup current slug or past slugs
         try:
           obj = generics.get_object_or_404(queryset, slug=self.kwargs['slug'])
         except (Http404):
@@ -44,7 +45,7 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         self.check_object_permissions(self.request, obj)
 
         # artist view count
-        obj.views_increment()
+        obj.increment_views()
 
         return obj
 

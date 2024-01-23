@@ -30,7 +30,7 @@ elif [[ $COMMAND = "build" ]]; then
 
 elif [[ $COMMAND = "prod" ]]; then
 
-    export GUNICORN_CMD_ARGS="--bind=0.0.0.0:8000 --workers=3 --name=artists-catalog"
+    export GUNICORN_CMD_ARGS="--name=artists-catalog --bind=0.0.0.0:8000 --workers=3 --worker-class=gevent"
     pipenv run \
         gunicorn --capture-output config.wsgi
 
@@ -46,7 +46,7 @@ elif [[ $COMMAND = "migrate" ]]; then
 elif [[ $COMMAND = "install" ]]; then
 
     # python backend
-    pipenv install
+    pipenv sync
     # javasript frontend
     cd frontends
     npm install
