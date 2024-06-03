@@ -1,3 +1,4 @@
+## Backend Application
 
 **Start application**
 
@@ -10,11 +11,11 @@
 
 **First run**
 
-    ln -s `pwd`/deployments/docker-compose-local.yml deployments/docker-compose.override.yml
+    cd deployments
+    ln -s `pwd`/docker-compose-local.yml docker-compose.override.yml
     docker-compose exec db mysql -e "create database catalog"
     docker-compose exec web pipenv run python manage.py createsuperuser
     docker-compose exec web pipenv run python manage.py createcachetable
-    
 
 
 **Development**
@@ -30,12 +31,15 @@
     # compile languages
     django-admin compilemessages
 
-**Frontends only**
-
-    docker-compose run --no-deps -p 5173:5173 web frontend
-
 **Debug Django**
 
     docker ps
     docker attach $containerID
     # quit with ctrl+p ctrl+q
+
+## Frontend Application
+
+**Frontends only**
+
+    cd deployments
+    docker-compose run --no-deps -p 5173:5173 web frontend
