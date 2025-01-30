@@ -22,7 +22,7 @@ export const useArtistDetailStore = defineStore("artistDetail", () => {
     artist.value = {
       ...data,
       birth_date: data.birth_date ? new Date(data.birth_date) : null,
-      permalink: `https://artejucana.com.br/a/${data.slug}/`,
+      permalink: `/a/${data.slug}/`,
     } as Artist
     state.value = ReadyStateType.SUCCESS
   }
@@ -57,15 +57,15 @@ export const useArtistsListStore = defineStore("artistsList", () => {
       url = url + `?category=${category_slug}`
     }
     await axios.get(url)
-      .then(res => artists.value = res.data as [Artist])
+      .then(res => artists.value = _uniqBy(res.data as Object[], 'slug') as [Artist])
       .catch(err => error.value = axiosApiError(err));
   }
 
   function artistsByCategory(category_slug: String): Artist[] {
-    return _uniqBy(Array().concat(
+    return Array().concat(
       _filter(artists.value, {categories: [{slug: category_slug}]}),
       _filter(artists.value, {categories: [{parent: {slug: category_slug}}]})
-    ), 'slug')
+    )
   }
 
   return { artists, error, load, artistsByCategory };

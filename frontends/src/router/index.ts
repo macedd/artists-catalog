@@ -3,6 +3,7 @@ import PageNotFound from "../views/PageNotFound.vue";
 import HomeView from "../views/HomeView.vue";
 import HomePlaceholder from '../views/HomePlaceholder.vue';
 import ArtistView from "../views/ArtistView.vue";
+import CategoryView from "../views/CategoryView.vue";
 // import PortfolioView from "../views/PortfolioView.vue";
 
 const router = createRouter({
@@ -30,6 +31,11 @@ const router = createRouter({
       //     component: PortfolioView,
       //   }
       // ],
+    },
+    {
+      path: "/c/:category",
+      name: "category",
+      component: CategoryView,
     },
     { path: "/:pathMatch(.*)*", component: PageNotFound }
   ],

@@ -7,6 +7,7 @@ export interface ArtistCategory {
   title: string,
   slug: string,
   parent: ParentCategory,
+  permalink: string,
 }
 
 export enum ArtistPortfolioType {
