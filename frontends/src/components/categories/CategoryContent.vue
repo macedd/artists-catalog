@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import type { Artist, ArtistCategory } from '../../stores/types';
 import { LayoutHelpers } from '../../stores/layout';
 import CategoryArtistsList from './CategoryArtistsList.vue';
+import { useArtistHelpers } from '../../stores/artist';
 
 const props = defineProps<{
   category: ArtistCategory;
@@ -12,7 +13,11 @@ const props = defineProps<{
 const responsiveItemsCount = LayoutHelpers.carouselItemsToShow()
 
 const popularArtists = computed(() => props.artists.slice(0, responsiveItemsCount.value))
-const latestArtists = computed(() => props.artists.slice(responsiveItemsCount.value))
+const latestArtists = computed(() =>
+  useArtistHelpers()
+    .rankArtistsByWeightedScore(
+      props.artists.slice(responsiveItemsCount.value)))
+
 </script>
 
 <template>

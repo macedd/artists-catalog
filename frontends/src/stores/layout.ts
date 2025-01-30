@@ -15,7 +15,6 @@ export class LayoutHelpers {
         } else {
           itemsToShow.value = 3
         }
-        console.log(itemsToShow.value)
     }
   
       // Listen to resize event

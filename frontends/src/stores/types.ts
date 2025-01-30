@@ -48,6 +48,8 @@ export interface Artist {
   portfolio: ArtistPortfolio[],
   // custom attributes
   permalink: string,
+  rank: Number,
+  created_at: Date,
 }
 
 export interface Article {

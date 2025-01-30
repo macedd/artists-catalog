@@ -16,7 +16,7 @@ if [[ $COMMAND = "dev" ]]; then
 
     cd -
     pipenv run \
-        python manage.py runserver 0.0.0.0:8002
+        python manage.py runserver --insecure 0.0.0.0:8002
 
 elif [[ $COMMAND = "build" ]]; then
 

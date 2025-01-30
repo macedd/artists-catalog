@@ -4,6 +4,7 @@ import axios from 'axios';
 import _filter from 'lodash/filter'
 import _uniqBy from 'lodash/uniqBy'
 import _find from 'lodash/find'
+import _orderBy from 'lodash/orderBy';
 
 import { axiosApiError, apiUrl } from './helpers';
 import { type Artist, type ArtistPortfolioType, type ArtistPortfolio, type ApiError, ReadyStateType } from './types';
@@ -57,7 +58,7 @@ export const useArtistsListStore = defineStore("artistsList", () => {
       url = url + `?category=${category_slug}`
     }
     await axios.get(url)
-      .then(res => artists.value = _uniqBy(res.data as Object[], 'slug') as [Artist])
+      .then(res => artists.value = _uniqBy(res.data as Object[], 'slug') as Artist[])
       .catch(err => error.value = axiosApiError(err));
   }
 
@@ -78,6 +79,9 @@ export const useArtistHelpers = defineStore("artistHelpers", () => {
   function portfolioById(artist: Artist, portfolio_id: Number): ArtistPortfolio | undefined {
     return _find(artist.portfolio, {id: portfolio_id});
   }
+  function rankArtistsByWeightedScore(artists: Artist[]): Artist[] {
+    return _orderBy(artists, ['rank'], ['desc']);
+  }
 
-  return { portfolioByType, portfolioById };
+  return { portfolioByType, portfolioById, rankArtistsByWeightedScore };
 });
