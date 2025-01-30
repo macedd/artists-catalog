@@ -57,7 +57,7 @@ class ArtistListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Artist
-        fields = ['name', 'slug', 'title', 'photo_thumbnail', 'categories']
+        fields = ['name', 'slug', 'title', 'photo_thumbnail', 'categories', 'created_at']
 
 class ArtistSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
