@@ -1,15 +1,21 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { Artist } from '../../stores/types';
+import { LayoutHelpers } from '../../stores/layout';
 
 const props = defineProps<{
   artists: Artist[];
 }>();
 
-console.log(props.artists)
+const responsiveItemsCount = LayoutHelpers.carouselItemsToShow()
+const gridTemplateColumns = computed(() => {
+  return `repeat(${responsiveItemsCount.value}, minmax(0, 1fr))`;
+});
 
 </script>
 <template>
-    <ol class="flex">
+  <ol :style="{ gridTemplateColumns: gridTemplateColumns }"
+    class="grid gap-4">
       <li v-for="(artist, index) in props.artists" :key="artist.slug"
         class="items-start px-3 pt-3 text-center"
         >
