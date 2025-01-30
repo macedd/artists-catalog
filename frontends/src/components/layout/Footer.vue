@@ -7,7 +7,7 @@
     <div class="flex flex-col items-center md:flex-row md:justify-between">
       <!-- Logos -->
       <a class="flex items-center mb-4 md:mb-0">
-          <img src="@/assets/images/artejucana-prefeitura.png"
+          <img src="@/assets/images/artejucana-UFU-2.png"
             class="mr-3 h-12 lg:h-16"
             alt="Artejucana e Lei Paulo Gustavo" />
       </a>
