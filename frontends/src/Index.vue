@@ -11,7 +11,7 @@ import Footer from './components/layout/Footer.vue'
   <Header />
   <div class="container mx-auto mt-4 mb-4 md:mb-8">
     <RouterView v-slot="{ Component }">
-      <keep-alive include="HomeView,">
+      <keep-alive include="HomeView,CategoryView,">
         <Suspense timeout="1">
           <template #default>
             <component

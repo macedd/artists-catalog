@@ -42,7 +42,9 @@ function hasShareFeature() {
         <li class="mr-4 font-bold lowercase"
           v-for="category in artist.categories"
           :key="category.slug">
-          #{{ category.slug }}
+          <router-link :to="`/c/${category.slug}/`">
+            #{{ category.slug }}
+          </router-link>
         </li>
       </ul>
 

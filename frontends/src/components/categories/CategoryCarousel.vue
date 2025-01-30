@@ -29,7 +29,9 @@ const itemsToShow = LayoutHelpers.carouselItemsToShow();
   <div class="my-4 md:my-8">
     <h3
       class="bg-[#212121] py-2 px-8 text-xl mb-2 mt-6 uppercase text-white md:text-3xl">
-      {{ category.title }}
+      <router-link :to="`/c/${category.slug}/`">
+        {{ category.title }} <span class="text-xs md:text-base text-gray-500 lowercase">> ver todos artistas</span>
+      </router-link>
     </h3>
     <!-- gallery -->
     <Carousel

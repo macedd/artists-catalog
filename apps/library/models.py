@@ -93,7 +93,7 @@ class RankBase(models.Model):
       age = timezone.now() - self.created_at
       view_score = self.views / self.get_max_views()
       recency_score = 1 - (age / self.get_max_age())
-      return round(view_score * 0.6 + recency_score * 0.4, 4)
+      return round(view_score * 0.7 + recency_score * 0.3, 4)
 
 
 class ThumbnailsBase(models.Model):
