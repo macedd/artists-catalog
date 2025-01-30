@@ -54,10 +54,10 @@ class ArtistListSerializer(serializers.ModelSerializer):
 
     def get_photo_thumbnail(self, obj: Artist):
         return obj.get_image_thumbnail('photo', '400x400')
-    
+
     class Meta:
         model = Artist
-        fields = ['name', 'slug', 'title', 'photo_thumbnail', 'categories', 'created_at']
+        fields = ['name', 'slug', 'title', 'photo_thumbnail', 'categories', 'created_at', 'rank']
 
 class ArtistSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)

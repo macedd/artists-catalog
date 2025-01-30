@@ -22,7 +22,7 @@ class ArtistViewSet(MultiSerializerReadOnlyViewSet):
         """
         Optionally restricts the returned artists to a given category,
         """
-        queryset = Artist.objects.order_by('-featured', '-views', 'created_at')
+        queryset = Artist.objects.order_by('-featured', '-views', '-created_at')
         category = self.request.query_params.get('category')
         if category is not None:
             queryset = queryset.filter(Q(categories__slug=category) | Q(categories__parent__slug=category))

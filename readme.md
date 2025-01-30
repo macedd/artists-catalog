@@ -1,5 +1,13 @@
 ## Backend Application
 
+**First run**
+
+    cp my-sample.cnf my.cnf
+    ln -s deployments/docker-compose-local.yml deployments/docker-compose.override.yml
+
+    cd deployments
+    docker-compose exec db mysql -e "create database catalog"
+
 **Start application**
 
     cd deployments
@@ -9,11 +17,8 @@
     docker-compose run web build
     docker-compose up -d
 
-**First run**
+**Admin startup**
 
-    cd deployments
-    ln -s `pwd`/docker-compose-local.yml docker-compose.override.yml
-    docker-compose exec db mysql -e "create database catalog"
     docker-compose exec web pipenv run python manage.py createsuperuser
     docker-compose exec web pipenv run python manage.py createcachetable
 
@@ -43,3 +48,13 @@
 
     cd deployments
     docker-compose run --no-deps -p 5173:5173 web frontend
+
+## Configuration
+
+Select a docker compose override
+
+    ln -s deployments/docker-compose-local.yml deployments/docker-compose.override.yml
+
+Configure the django mysql configuration
+
+    cp my-sample.cnf my.cnf

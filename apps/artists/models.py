@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from .fields import PortfolioUploadField
-from apps.library.models import SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase, VideosBase
+from apps.library.models import SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase, VideosBase, RankBase
 
 # Create your models here.
 
@@ -14,7 +14,7 @@ def artist_directory_path(instance: models.Model, filename: str):
     # file will be uploaded to MEDIA_ROOT/<slug>/<filename>
     return 'artists/{0}/{1}'.format(slug, filename)
 
-class Artist(SlugsBase, TimestampsBase, ViewsBase, ThumbnailsBase):
+class Artist(SlugsBase, TimestampsBase, ViewsBase, RankBase, ThumbnailsBase):
     name = models.CharField(
         max_length=120,
         verbose_name=_('Name')

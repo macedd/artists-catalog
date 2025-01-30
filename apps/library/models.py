@@ -3,6 +3,9 @@ import urllib.parse as urlparse
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
+from django.db.models import Max, F, ExpressionWrapper, DurationField
+from django.utils import timezone
+from django.utils.functional import cached_property
 
 import sorl.thumbnail
 
@@ -48,6 +51,7 @@ class TimestampsBase(models.Model):
   class Meta:
     abstract = True
 
+
 class ViewsBase(models.Model):
   views = models.IntegerField(
     default=0,
@@ -60,6 +64,31 @@ class ViewsBase(models.Model):
   
   class Meta:
     abstract = True
+
+
+class RankBase(models.Model):
+  class Meta:
+    abstract = True
+
+  @cached_property
+  def max_views(self):
+      return max(1, self.__class__.objects.aggregate(max_views=Max('views'))['max_views'])
+
+  @cached_property
+  def max_age(self):
+      now = timezone.now()
+      max_age = self.__class__.objects.annotate(
+          age=ExpressionWrapper(now - F('created_at'), output_field=DurationField())
+      ).aggregate(max_age=Max('age'))['max_age']
+      return max_age
+
+  @property
+  def rank(self) -> float:
+      age = timezone.now() - self.created_at
+      view_score = self.views / self.max_views
+      recency_score = 1 - (age / self.max_age)
+      return round(view_score * 0.6 + recency_score * 0.4, 4)
+
 
 class ThumbnailsBase(models.Model):
   images_thumbnails = models.JSONField(
