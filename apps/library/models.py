@@ -70,23 +70,29 @@ class RankBase(models.Model):
   class Meta:
     abstract = True
 
-  @cached_property
-  def max_views(self):
-      return max(1, self.__class__.objects.aggregate(max_views=Max('views'))['max_views'])
+  _max_views_cache = None
+  _max_age_cache = None
 
-  @cached_property
-  def max_age(self):
-      now = timezone.now()
-      max_age = self.__class__.objects.annotate(
-          age=ExpressionWrapper(now - F('created_at'), output_field=DurationField())
-      ).aggregate(max_age=Max('age'))['max_age']
-      return max_age
+  @classmethod
+  def get_max_views(cls):
+      if cls._max_views_cache is None:
+          cls._max_views_cache = max(1, cls.objects.aggregate(max_views=Max('views'))['max_views'])
+      return cls._max_views_cache
+
+  @classmethod
+  def get_max_age(cls):
+      if cls._max_age_cache is None:
+          now = timezone.now()
+          cls._max_age_cache = cls.objects.annotate(
+              age=ExpressionWrapper(now - F('created_at'), output_field=DurationField())
+          ).aggregate(max_age=Max('age'))['max_age']
+      return cls._max_age_cache
 
   @property
   def rank(self) -> float:
       age = timezone.now() - self.created_at
-      view_score = self.views / self.max_views
-      recency_score = 1 - (age / self.max_age)
+      view_score = self.views / self.get_max_views()
+      recency_score = 1 - (age / self.get_max_age())
       return round(view_score * 0.6 + recency_score * 0.4, 4)
 
 

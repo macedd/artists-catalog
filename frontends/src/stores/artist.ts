@@ -63,10 +63,10 @@ export const useArtistsListStore = defineStore("artistsList", () => {
   }
 
   function artistsByCategory(category_slug: String): Artist[] {
-    return Array().concat(
+    return _uniqBy(Array().concat(
       _filter(artists.value, {categories: [{slug: category_slug}]}),
       _filter(artists.value, {categories: [{parent: {slug: category_slug}}]})
-    )
+    ), 'slug')
   }
 
   return { artists, error, load, artistsByCategory };

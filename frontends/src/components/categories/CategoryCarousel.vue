@@ -6,7 +6,8 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 import type { ArtistCategory, Artist } from '../../stores/types';
-import { useArtistsListStore } from '../../stores/artist';
+import { useArtistsListStore, useArtistHelpers } from '../../stores/artist';
+import { LayoutHelpers } from '../../stores/layout';
 
 // Properties
 const props = defineProps<{
@@ -15,30 +16,12 @@ const props = defineProps<{
 
 // Store loading artists
 const store = useArtistsListStore();
-const artists = store.artistsByCategory(props.category.slug)
+const helper = useArtistHelpers();
+const artists = helper.rankArtistsByWeightedScore(store.artistsByCategory(props.category.slug))
 
 // Carousel configuration
 const carousel = ref<typeof Carousel|null>(null)
-let itemsToShow = ref(3);
-
-// Responsive breakpoints
-const breakpoints = useBreakpoints(breakpointsTailwind)
-function resolveItemsToShow() {
-  // breakpoints on md
-  if (breakpoints.isGreater('md')) {
-    itemsToShow.value = 5
-  } else {
-    itemsToShow.value = 3
-  }
-}
-// Listen to resize event
-onMounted(() => {
-  window.addEventListener("resize", resolveItemsToShow);
-  resolveItemsToShow();
-});
-onUnmounted(() => {
-  window.removeEventListener("resize", resolveItemsToShow);
-});
+const itemsToShow = LayoutHelpers.carouselItemsToShow();
 </script>
 
 <template>
@@ -58,7 +41,7 @@ onUnmounted(() => {
       :key="`carousel-${itemsToShow}`"
       snap-align="start"
       ref="carousel">
-      <Slide v-for="(artist, index) in artists" :key="artist.slug"
+      <Slide v-for="(artist, index) in artists.slice(0, 15)" :key="artist.slug"
         class="items-start px-3 pt-3 text-center"
         >
         <router-link :to="`/a/${artist.slug}/`"
